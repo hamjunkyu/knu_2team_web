@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
-
+console.log("exec express"); //그냥 추가
 app.use("/api", apiController);
 
 app.post("/api/login", (req, res) => {
