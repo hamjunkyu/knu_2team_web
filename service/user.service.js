@@ -1,3 +1,4 @@
+const { use } = require("../controller");
 const User = require("../schema/user.schema");
 // user = {email: "", nickname: "", password: ""}
 

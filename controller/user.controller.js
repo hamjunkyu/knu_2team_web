@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { createUser, getUserByEmail } = require("../service/user.service");
 const userController = require("express").Router();
-
 const jwt = require("jsonwebtoken");
 
 userController.post("/signin", async (req, res) => {
@@ -23,12 +22,14 @@ userController.post("/signin", async (req, res) => {
       .json({ result: false, message: "(!)회원 정보가 없습니다." });
   }
   const isValidPassword = bcrypt.compareSync(password, user.password);
-
   if (isValidPassword) {
+    //token을 넣어줄 예정
     const token = jwt.sign(
       { email: user.email, nickname: user.nickname },
       process.env.JWT_SECRET
     );
+
+    console.log(token);
     return res
       .status(200)
       .json({ result: true, message: "로그인 성공", token });
@@ -72,6 +73,29 @@ userController.post("/", async (req, res) => {
     return res.status(201).json({ result: true });
   } catch (err) {
     return res.status(500).json({ result: false });
+  }
+});
+
+//3)
+userController.post("/token", (req, res) => {
+  const token = req.body.token;
+  console.log(req.body); //확인
+  try {
+    const tokenVerify = jwt.verify(token, process.env.JWT_SECRET); //검증
+    if (tokenVerify) {
+      return res
+        .status(200)
+        .json({ isVerify: true, message: "토큰이 일치합니다." });
+    } else {
+      return res
+        .status(400)
+        .json({ isVerify: false, message: "토큰이 일치하지 않습니다." });
+    }
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(400)
+      .json({ isVerify: false, message: "토큰이 일치하지 않습니다." });
   }
 });
 

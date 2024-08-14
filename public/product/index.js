@@ -1,5 +1,6 @@
 const fetchProductList = async () => {
-  const fetchResult = await fetch("/api/product/", {
+  // product.controller와의 통신을 통해 'product' 가져옴
+  const fetchResult = await fetch("/api/product", {
     method: "get",
     headers: {
       "Content-Type": "application/json",
@@ -7,6 +8,7 @@ const fetchProductList = async () => {
   });
   if (fetchResult.ok) {
     const fetchData = await fetchResult.json();
+    // fetch Data -> { result: true, data: [] }
     console.log(fetchData);
     return fetchData.data;
   } else {
@@ -14,23 +16,29 @@ const fetchProductList = async () => {
   }
 };
 
-const productlistWrapper = document.getElementById("product_list_wrapper");
+const productListWrapper = document.getElementById("product_list_wrapper");
 
 const renderProductList = async () => {
   const productList = await fetchProductList();
-
+  // productList -> [] or null
   if (!productList || productList.length === 0) {
-    console.log("empty productlist");
+    console.log("empty productList");
     return;
   }
+  // productList가 존재하는 경우
   productList.forEach((v) => {
     const itemElem = document.createElement("div");
-    itemElem.innerHTML = `<div>${v.title}</div>
-        <div>가격: ${v.price}원</div>
-        <div>[상세설명] ${v.description}</div>
-        <div><img src="${v.imgUrl}"/></div>
-        <div>[재고수량] ${v.stock}"(개)</div>`;
-    productlistWrapper.append(itemElem);
+    itemElem.innerHTML = `
+      <div>${v.title}</div>
+      <div>가격: ${v.price}원</div>
+      <div>[상세설명] ${v.description}</div>
+      <div>
+        <img src="${v.imgUrl}" />
+      </div>
+      <div>재고수량: ${v.stock}(개)</div>
+    `;
+    productListWrapper.append(itemElem);
   });
 };
+
 renderProductList();
