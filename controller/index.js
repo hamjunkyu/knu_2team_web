@@ -1,4 +1,5 @@
 const apiController = require("express").Router();
+const productController = require("./product.controller");
 const userController = require("./user.controller");
 const productController = require("./product.controller");
 

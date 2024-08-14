@@ -1,36 +1,42 @@
 const bcrypt = require("bcryptjs");
 const { createUser, getUserByEmail } = require("../service/user.service");
 const userController = require("express").Router();
-
 const jwt = require("jsonwebtoken");
 
 userController.post("/signin", async (req, res) => {
-    // 사용자로부터 email과 password를 받음
-    const { email, password } = req.body;
-    // email 혹은 password 둘 중 하나라도 없으면 불가
-    if (!email || !password) {
-        return res.status(400).json({ result: false, message: "(!)로그인 정보가 올바르지 않습니다." });
-    }
-    // email을 기준으로 DB에서 유저 데이터를 꺼내와야 함
-    const user = await getUserByEmail(email);
-    // 유저 정보가 없을 때
-    if (!user) {
-        return res.status(404).json({ result: false, message: "(!)회원정보가 없습니다." });
-    }
-    // 있을 떄
-    const isValidPassword = bcrypt.compareSync(password, user.password);
-    if (isValidPassword) {
-        // token 끼워넣기
-        const token = jwt.sign(
-            { email: user.email, nickname: user.nickname }, 
-            process.env.JWT_SECRET,
-        );
-        return res.status(200).json({ result: true, message: "로그인 성공.", token });
-    } else {
-        return res.status(400).json({ result: false, message: "(!)비밀번호가 올바르지 않습니다." });
-    }
-});
+  const body = req.body;
+  // 사용자로부터 email과 password를 받음.
+  const email = req.body.email;
+  const password = req.body.password;
+  //email 혹은 password 둘 중 하나라도 없으면 나가
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ result: false, message: "(!)로그인 정보가 올바르지 않습니다." });
+  }
+  //email을 기준으로 DB에서 유저 데이터를 꺼내와야 함.
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return res
+      .status(404)
+      .json({ result: false, message: "(!)회원 정보가 없습니다." });
+  }
+  const isValidPassword = bcrypt.compareSync(password, user.password);
+  if (isValidPassword) {
+    //token을 넣어줄 예정
+    const token = jwt.sign(
+      { email: user.email, nickname: user.nickname },
+      process.env.JWT_SECRET
+    );
 
+    console.log(token);
+    return res
+      .status(200)
+      .json({ result: true, message: "로그인 성공", token });
+  } else {
+    return res.status(400).json({ result: false, message: "(!)비밀번호 틀림" });
+  }
+});
 userController.post("/", async (req, res) => {
   const { email, password, nickname } = req.body;
   console.log(req.body);
@@ -58,8 +64,8 @@ userController.post("/", async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, salt);
 
   const user = {
-    email,      // email: email
-    nickname,   // nickname: nickname
+    email, // email: email
+    nickname, // nickname: nickname
     password: hashedPassword,
   };
   try {
@@ -67,6 +73,26 @@ userController.post("/", async (req, res) => {
     return res.status(201).json({ result: true });
   } catch (err) {
     return res.status(500).json({ result: false });
+  }
+});
+
+//3)
+userController.post("/api/user/token", (req, res) => {
+  const { tokenKey } = req.body;
+  console.log(req.body); //확인
+  try {
+    const tokenVerify = jwt.verify(tokenKey, process.env.JWT_SECRET); //검증
+  } catch (err) {
+    //err
+  }
+  if (tokenVerify) {
+    return res
+      .status(200)
+      .json({ isVerify: true, message: "토큰이 일치합니다." });
+  } else {
+    return res
+      .status(400)
+      .json({ isVerify: false, message: "토큰이 일치하지 않습니다." });
   }
 });
 
