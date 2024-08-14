@@ -1,6 +1,7 @@
 const { use } = require("../controller");
 const User = require("../schema/user.schema");
 // user = {email: "", nickname: "", password: ""}
+
 const createUser = async (user) => {
   try {
     const createdUser = await User.create(user);

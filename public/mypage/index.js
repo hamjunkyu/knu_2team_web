@@ -1,8 +1,8 @@
-window.addEventListener("load", async () => {
-  const token = localStorage.getItem("token");
-
+window.addEventListener("DOMContentLoaded", async () => {
   const isTokenOk = async () => {
     try {
+      const token = localStorage.getItem("token");
+
       const fetchResult = await fetch("/api/user/token", {
         method: "post",
         body: JSON.stringify({ token }),
@@ -13,16 +13,24 @@ window.addEventListener("load", async () => {
       if (fetchResult.ok) {
         const fetchData = await fetchResult.json();
         console.log(fetchData);
-        return fetchData.tokenKey;
+        //토큰불일치(로그인페이지 이동)
+        if (!fetchData.isVerify) {
+          window.location.href = "http://localhost:8000/signin";
+          localStorage.removeItem("token");
+        }
+        //토큰일치(마이페이지 이동)
+        // window.location.href = "http://localhost:8000/mypage";
       } else {
-        console.log(fetchData);
-        return false;
+        alert("(!)페이지 로딩 오류");
+        window.location.href = "http://localhost:8000/signin";
       }
     } catch (err) {
       console.log(err);
       alert("(!)페이지 로딩 오류");
+      window.location.href = "http://localhost:8000/signin";
     }
   };
+  isTokenOk();
 });
 
 /*
@@ -44,5 +52,6 @@ res.json({ isVerify: true })
 4) 유지희
 (프론트) 3)으로부터 받은 응답값을 통해서
 토큰이 유효하다면 그대로 페이지 사용을 하게하고,
-토큰이 유효하지 않다면 localhost:8000/signin 페이지로 보냄
+토큰이 유효하지 않다면 localhost:8000/signin 페이지로 
+
 */
