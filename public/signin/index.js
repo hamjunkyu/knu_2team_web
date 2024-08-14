@@ -26,7 +26,3 @@ signinButton.addEventListener("click", async () => {
     alert("(!) 로그인 오류");
   }
 });
-
-signupbutton.addEventListener("click", () => {
-  window.location.href = "/signup/index.html"; // 서버의 설정에 맞게 경로를 수정
-});
