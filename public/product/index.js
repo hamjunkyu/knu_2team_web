@@ -29,6 +29,7 @@ const renderProductList = async () => {
   productList.forEach((v) => {
     const itemElem = document.createElement("div");
     itemElem.innerHTML = `
+      
       <div>${v.title}</div>
       <div>가격: ${v.price}원</div>
       <div>[상세설명] ${v.description}</div>
@@ -36,9 +37,17 @@ const renderProductList = async () => {
         <img src="${v.imgUrl}" />
       </div>
       <div>재고수량: ${v.stock}(개)</div>
+      
     `;
+    itemElem.setAttribute("id", `${v.productId}`);
+    itemElem.setAttribute("onclick", "move(this)");
     productListWrapper.append(itemElem);
   });
 };
 
 renderProductList();
+
+function move(target) {
+  const idValue = target.id;
+  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
+}
