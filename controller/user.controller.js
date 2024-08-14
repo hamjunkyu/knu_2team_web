@@ -1,7 +1,41 @@
 const bcrypt = require("bcryptjs");
-const { createUser } = require("../service/user.service");
+const { createUser, getUserByEmail } = require("../service/user.service");
 const userController = require("express").Router();
 
+const jwt = require("jsonwebtoken");
+
+userController.post("/signin", async (req, res) => {
+  const body = req.body;
+  // 사용자로부터 email과 password를 받음.
+  const email = req.body.email;
+  const password = req.body.password;
+  //email 혹은 password 둘 중 하나라도 없으면 나가
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ result: false, message: "(!)로그인 정보가 올바르지 않습니다." });
+  }
+  //email을 기준으로 DB에서 유저 데이터를 꺼내와야 함.
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return res
+      .status(404)
+      .json({ result: false, message: "(!)회원 정보가 없습니다." });
+  }
+  const isValidPassword = bcrypt.compareSync(password, user.password);
+
+  if (isValidPassword) {
+    const token = jwt.sign(
+      { email: user.email, nickname: user.nickname },
+      process.env.JWT_SECRET
+    );
+    return res
+      .status(200)
+      .json({ result: true, message: "로그인 성공", token });
+  } else {
+    return res.status(400).json({ result: false, message: "(!)비밀번호 틀림" });
+  }
+});
 userController.post("/", async (req, res) => {
   const { email, password, nickname } = req.body;
   console.log(req.body);
@@ -29,8 +63,8 @@ userController.post("/", async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, salt);
 
   const user = {
-    email,      // email: email
-    nickname,   // nickname: nickname
+    email, // email: email
+    nickname, // nickname: nickname
     password: hashedPassword,
   };
   try {
