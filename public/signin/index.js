@@ -20,7 +20,7 @@ signinButton.addEventListener("click", async () => {
       const result = await signinResult.json();
       console.log("로그인 성공", result);
       localStorage.setItem("token", result.token);
-      window.location.href = "/mypage";
+      window.location.href = "/";
     } else {
       alert("(!)로그인 오류");
     }
