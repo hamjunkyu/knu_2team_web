@@ -19,7 +19,7 @@ signupButton.addEventListener("click", async () => {
     });
     if (signupResult.ok) {
       alert("회원가입 성공");
-      window.location.href = "http://localhost:8000";
+      window.location.href = "/";
     } else {
       alert("(!)회원가입 실패");
     }

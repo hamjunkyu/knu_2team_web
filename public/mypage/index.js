@@ -16,19 +16,17 @@ window.addEventListener("DOMContentLoaded", async () => {
         //토큰불일치(로그인페이지 이동)
         if (!fetchData.isVerify) {
           alert("(!)계정 정보 불일치");
-          window.location.href = "http://localhost:8000/signin";
+          window.location.href = "/signin";
           localStorage.removeItem("token");
         }
-        //토큰일치(마이페이지 이동)
-        // window.location.href = "http://localhost:8000/mypage";
       } else {
         alert("(!)로그인을 해주세요.");
-        window.location.href = "http://localhost:8000/signin";
+        window.location.href = "/signin";
       }
     } catch (err) {
       console.log(err);
       alert("(!)에러");
-      window.location.href = "http://localhost:8000/signin";
+      window.location.href = "/signin";
     }
   };
   isTokenOk();

@@ -45,17 +45,17 @@ const renderProductList = async () => {
 };
 
 const move = (id) => {
-  window.location.href = `http://localhost:8000/product/detail?id=${id}`;
+  window.location.href = `/product/detail?id=${id}`;
 };
 
 homeButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000";
+  window.location.href = "/";
 });
 mypageButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000/mypage";
+  window.location.href = "/mypage";
 });
 cartButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000";
+  window.location.href = "/";
 });
 
 renderProductList();
