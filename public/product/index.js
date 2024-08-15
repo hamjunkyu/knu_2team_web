@@ -29,14 +29,14 @@ const renderProductList = async () => {
     console.log("No products available");
     return;
   }
-
+  // toLocaleString 으로 바꾸기 ex) 1,000 처럼
   productList.forEach((product) => {
     const itemElem = document.createElement("div");
     itemElem.classList.add("product-item");
     itemElem.innerHTML = `
       <img src="${product.imgUrl}" alt="${product.title}">
       <h3>${product.title}</h3>
-      <p class="price">${product.price}원</p>
+      <p class="price">${parseInt(product.price, 10).toLocaleString()}원</p>
       <p class="stock">재고: ${product.stock}개</p>
     `;
     itemElem.addEventListener("click", () => move(product.productId));
