@@ -36,3 +36,61 @@ submitButton.addEventListener("click", async () => {
     console.error(err);
   }
 });
+
+/////////////////////////////////////////////////////////////////////
+
+const productOrderWrapper = document.getElementById("product_order_wrapper");
+
+const renderCart = () => {
+  productOrderWrapper.innerHTML = "";
+  let totalPriceSum = 0;
+
+  const productsInCart = JSON.parse(window.localStorage.getItem("cart")) || [];
+
+  console.log(productsInCart);
+  // 장바구니가 비어있을 때
+  if (productsInCart.length == 0) {
+    alert("장바구니에 제품이 없습니다.");
+    window.location.href = `/product`;
+  }
+
+  for (let i = 0; i < productsInCart.length; i++) {
+    const productInfo = productsInCart[i];
+    console.log(productInfo);
+
+    const itemElem = document.createElement("div");
+    itemElem.classList.add("product-item");
+
+    const product = productInfo.product;
+    let orderCount = productInfo.orderCount;
+
+    let totalPrice = product.price * orderCount;
+
+    itemElem.innerHTML = `
+      <img src="${product.imgUrl}" alt="${product.title}">
+      <h3>${product.title}</h3>
+    // 제품설명 코드 추가
+      <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
+      <p>수량: 
+            <button onclick="updateQuantity(${
+              product.productId
+            }, ${orderCount}, -1)">-</button>
+            <span id="quantity-${product.productId}">${orderCount}</span>
+            <button onclick="updateQuantity(${
+              product.productId
+            }, ${orderCount}, 1)">+</button>
+      </p>
+      <button onclick="removeItem(${product.productId})">삭제</button>
+    `;
+
+    totalPriceSum += totalPrice;
+    productOrderWrapper.append(itemElem);
+  }
+  // 총 금액을 표시
+  const PriceSum = document.getElementById("total_price");
+  PriceSum.innerHTML = `
+  <p>합계: ${totalPriceSum}원</p>
+  `;
+};
+
+renderCart();

@@ -60,10 +60,10 @@ cartButton.addEventListener("click", () => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const productCartWrapper = document.getElementById("product_cart_wrapper");
-let totalPriceSum = 0;
 
 const renderCart = () => {
   productCartWrapper.innerHTML = "";
+  let totalPriceSum = 0;
 
   const productsInCart = JSON.parse(window.localStorage.getItem("cart")) || [];
 
@@ -105,12 +105,14 @@ const renderCart = () => {
     totalPriceSum += totalPrice;
     productCartWrapper.append(itemElem);
   }
+  // 총 금액을 표시
+  const PriceSum = document.getElementById("total_price");
+  PriceSum.innerHTML = `
+  <p>합계: ${totalPriceSum}원</p>
+  `;
 };
 
 renderCart();
-
-// 총 금액을 표시할 요소를 추가합니다.
-console.log(totalPriceSum);
 
 // 제품 이름 클릭 시 상세정보 이동
 const move = (id) => {
