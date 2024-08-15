@@ -7,3 +7,5 @@ const getProductList = async () => {
 };
 
 module.exports = getProductList;
+
+const product = require("../schema/product.schema");

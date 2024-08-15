@@ -75,6 +75,9 @@ const renderProductList = async () => {
   });
 
   getElement("basket_button").addEventListener("click", () => {
+    const productArr = JSON.stringify(targetProduct);
+    window.localStorage.setItem("cart", productArr);
+    console.log("토큰 저장 완료");
     alert("장바구니에 담겼습니다.");
   });
 
@@ -98,6 +101,4 @@ productButton.addEventListener("click", () => {
   window.location.href = "http://localhost:8000/product";
 });
 
-cartButton.addEventListener("click", () => {
-  window.location.href = "http://localhost:8000";
-});
+cartButton.addEventListener("click", () => {});
