@@ -10,6 +10,7 @@ if (!productsInCart) {
 window.addEventListener("DOMContentLoaded", async () => {});
 
 productsInCart.forEach((product) => {
+  s;
   const itemElem = document.createElement("div");
   itemElem.classList.add("product-item");
   itemElem.innerHTML = `

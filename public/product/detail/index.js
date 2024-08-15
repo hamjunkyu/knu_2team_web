@@ -59,25 +59,51 @@ const renderProductList = async () => {
     </div>
   `;
 
-  const purchaseQuantity = document.getElementById("quantity_input");
+  const orderCount = document.getElementById("quantity_input");
 
-  purchaseQuantity.addEventListener("input", function () {
-    let currentValue = parseInt(purchaseQuantity.value);
+  orderCount.addEventListener("input", function () {
+    let currentValue = parseInt(orderCount.value);
 
     if (currentValue > targetProduct.stock) {
-      purchaseQuantity.value = targetProduct.stock;
+      orderCount.value = targetProduct.stock;
       alert("구매가능 수량을 초과하였습니다.");
     }
 
     if (currentValue < 0) {
-      purchaseQuantity.value = 0;
+      orderCount.value = 0;
     }
   });
 
   getElement("basket_button").addEventListener("click", () => {
-    const productArr = JSON.stringify(targetProduct);
-    window.localStorage.setItem("cart", productArr);
-    console.log("토큰 저장 완료");
+    const existingCart = JSON.parse(window.localStorage.getItem("cart")) || [];
+
+    const newProduct = {
+      product: {
+        id: targetProduct.productId, // 각 제품의 고유 ID
+        title: targetProduct.title,
+        price: targetProduct.price,
+        imgUrl: targetProduct.imgUrl,
+        description: targetProduct.description,
+        stock: targetProduct.stock,
+      },
+      orderCount: parseInt(orderCount.value), // 사용자가 입력한 수량
+    };
+
+    const existingProductIndex = existingCart.findIndex(
+      (item) => item.product.id === newProduct.product.id
+    );
+
+    if (existingProductIndex !== -1) {
+      // 동일한 제품이 이미 장바구니에 있으면 수량을 업데이트
+      existingCart[existingProductIndex].orderCount += newProduct.orderCount;
+    } else {
+      // 동일한 제품이 없으면 새로운 객체로 추가
+      existingCart.push(newProduct);
+    }
+
+    // 로컬 스토리지에 업데이트된 장바구니 저장
+    window.localStorage.setItem("cart", JSON.stringify(existingCart));
+    console.log("장바구니에 상품이 추가되었습니다.");
     alert("장바구니에 담겼습니다.");
   });
 
