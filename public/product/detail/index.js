@@ -23,9 +23,9 @@ const fetchProductList = async () => {
   }
 };
 
-const productDetailWrapper = getElement("product_detail_wrapper");
+const productDetailWrapper = document.getElementById("product_detail_wrapper");
 
-const renderProductDetail = async () => {
+const renderProductList = async () => {
   const productList = await fetchProductList();
   if (!productList || productList.length === 0) {
     console.log("empty productList");
@@ -60,7 +60,10 @@ const renderProductDetail = async () => {
   `;
 
   getElement("basket_button").addEventListener("click", () => {
-    window.location.href = "http://localhost:8000";
+    const productArr = JSON.stringify(targetProduct);
+    window.localStorage.setItem("cart", productArr);
+    console.log("토큰 저장 완료");
+    alert("장바구니에 담겼습니다.");
   });
 
   getElement("pay_button").addEventListener("click", () => {
@@ -68,7 +71,12 @@ const renderProductDetail = async () => {
   });
 };
 
-renderProductDetail();
+renderProductList();
+
+function move(target) {
+  const idValue = target.id;
+  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
+}
 
 homeButton.addEventListener("click", () => {
   window.location.href = "http://localhost:8000/home";
@@ -78,6 +86,4 @@ productButton.addEventListener("click", () => {
   window.location.href = "http://localhost:8000/product";
 });
 
-cartButton.addEventListener("click", () => {
-  window.location.href = "http://localhost:8000";
-});
+cartButton.addEventListener("click", () => {});
