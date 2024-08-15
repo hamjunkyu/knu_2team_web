@@ -22,6 +22,7 @@ const fetchProductList = async () => {
     return null;
   }
 };
+
 const productDetailWrapper = document.getElementById("product_detail_wrapper");
 
 const renderProductList = async () => {
@@ -42,13 +43,16 @@ const renderProductList = async () => {
     return;
   }
 
+  // 가격에 toLocaleString() 적용
+  const formattedPrice = parseInt(targetProduct.price, 10).toLocaleString();
+
   productDetailWrapper.innerHTML = `
     <div>
       <img src="${targetProduct.imgUrl}" alt="${targetProduct.title}">
     </div>
     <div>
       <h1>${targetProduct.title}</h1>
-      <div class="price">가격: ${targetProduct.price}원</div>
+      <div class="price">가격: ${formattedPrice}원</div>
       <div class="stock">재고수량: ${targetProduct.stock}(개)</div>
       <div class="quantity">구매수량:<input id="quantity_input" type="number" max="${targetProduct.stock}" min="0" value="0"/>(개)</div>
       <div class="description">[상세설명] ${targetProduct.description}</div>
@@ -58,7 +62,6 @@ const renderProductList = async () => {
       </div>
     </div>
   `;
-
   const orderCount = document.getElementById("quantity_input");
 
   orderCount.addEventListener("input", function () {

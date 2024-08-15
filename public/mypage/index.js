@@ -1,3 +1,5 @@
+const mainButton = document.getElementById("main_button");
+
 window.addEventListener("DOMContentLoaded", async () => {
   const isTokenOk = async () => {
     try {
@@ -32,6 +34,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   };
   isTokenOk();
+});
+
+mainButton.addEventListener("click", () => {
+  window.location.href = "/";
 });
 
 /*

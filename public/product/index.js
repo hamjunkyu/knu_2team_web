@@ -36,7 +36,7 @@ const renderProductList = async () => {
     itemElem.innerHTML = `
       <img src="${product.imgUrl}" alt="${product.title}">
       <h3>${product.title}</h3>
-      <p class="price">${product.price}원</p>
+      <p class="price">${parseInt(product.price, 10).toLocaleString()}원</p>
       <p class="stock">재고: ${product.stock}개</p>
     `;
     itemElem.addEventListener("click", () => move(product.productId));
