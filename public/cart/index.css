@@ -1,4 +1,3 @@
-/* General Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -38,7 +37,7 @@ header {
   background-color: #555;
 }
 
-section#product_cart_wrapper {
+.product-cart {
   margin: 20px;
   padding: 20px;
   background-color: white;
