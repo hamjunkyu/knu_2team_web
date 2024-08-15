@@ -1,4 +1,4 @@
-const getOrderList = require("../service/order.service");
+const purchaseOrder = require("../service/order.service");
 
 const orderController = require("express").Router();
 
@@ -8,12 +8,25 @@ orderController.post("/", async (req, res) => {
     buyer_phone,
     buyer_email,
     delivery_name,
-    address,
+    delivery_address,
     delivery_phone,
+    products,
   } = req.body;
-
-  const orderList = await getOrderList();
-  return res.json({ result: true, data: orderList });
+  const order = {
+    buyer_name,
+    buyer_phone,
+    buyer_email,
+    delivery_name,
+    delivery_address,
+    delivery_phone,
+    products,
+  };
+  try {
+    await purchaseOrder(order);
+    return res.status(201).json({ result: true });
+  } catch (err) {
+    return res.status(500).json({ result: false });
+  }
 });
 
 module.exports = orderController;

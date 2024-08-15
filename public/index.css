@@ -1,3 +1,13 @@
+.hero {
+  background-image: url("image/main.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white; /* 텍스트 색상을 흰색으로 설정 (가독성을 위해) */
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  padding: 50px; /* 필요에 따라 여백 조정 */
+}
+
 /* Reset some basic elements */
 body,
 h1,
@@ -61,10 +71,21 @@ main {
 }
 
 .hero {
+  background-image: url("image/main.jpg"); /* 이미지 경로 */
   background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 66.67%; /* 화면의 2/3 크기로 설정 */
+  margin: 0 auto; /* 가로축 가운데 정렬 */
   padding: 60px 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 66.67vh; /* 화면 높이의 2/3 크기로 설정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수직축 가운데 정렬 */
+  align-items: center; /* 가로축 내부의 콘텐츠도 가운데 정렬 */
 }
 
 .hero h2 {
@@ -80,18 +101,20 @@ main {
 }
 
 .hero .shop_now {
-  background-color: #28a745;
+  background: #ffafbd;
+  /*background: linear-gradient(135deg, #ffafbd, #ffc3a0);*/
   color: #fff;
   border: none;
-  padding: 12px 25px;
+  padding: 20px 40px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 20px;
   transition: background-color 0.3s ease;
+  margin-top: 70px;
 }
 
 .hero .shop_now:hover {
-  background-color: #218838;
+  background-color: #ffc3a0;
 }
 
 /* Footer styling */

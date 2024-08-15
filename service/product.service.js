@@ -6,6 +6,13 @@ const getProductList = async () => {
   return productList;
 };
 
-module.exports = getProductList;
+const getProductData = async (foundproductId) => {
+  // Product 모델을 통해 , MongoDB에서 데이터를 가져와야함
+  const productData = await Product.findOne({ productId: foundproductId });
+  return productData;
+};
 
-const product = require("../schema/product.schema");
+module.exports = {
+  getProductList,
+  getProductData,
+};

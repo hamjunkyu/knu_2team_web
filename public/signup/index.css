@@ -10,7 +10,7 @@ body {
 
 .signup-container {
   background-color: #ffffff;
-  padding: 40px 30px;
+  padding: 40px; /* 균등한 padding 값을 줍니다. */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 300px;
@@ -23,9 +23,9 @@ body {
 }
 
 .signup-container input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  width: calc(100% - 24px); /* padding 값을 고려하여 width 계산 */
+  padding: 12px;
+  margin: 10px 0; /* 위아래 margin 동일하게 조정 */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
