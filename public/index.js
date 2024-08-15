@@ -6,15 +6,15 @@ const loginButton = document.getElementById("login_button");
 const signupButton = document.getElementById("signup_button");
 
 loginButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000/signin";
+  window.location.href = "/signin";
 });
 
 signupButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000/signup";
+  window.location.href = "/signup";
 });
 
 document
   .getElementById("shop_now_button")
   .addEventListener("click", function () {
-    window.location.href = "http://localhost:8000/product";
+    window.location.href = "/product";
   });
