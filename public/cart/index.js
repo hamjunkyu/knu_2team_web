@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
       } else {
         alert("(!)로그인 후 이용해주세요.");
-        //window.location.href = "http://localhost:8000/signin";
+        //window.location.href = "/signin";
       }
     } catch (err) {
       console.log(err);
@@ -61,15 +61,19 @@ const productCartWrapper = document.getElementById("product_cart_wrapper");
 let totalPriceSum = 0;
 
 const renderCart = () => {
-  const productsInCart = localStorage.getItem("cart");
+  const productsInCart = JSON.parse(window.localStorage.getItem("cart")) || [];
 
+  console.log(productsInCart);
   // 장바구니가 비어있을 때
   if (!productsInCart) {
     alert("장바구니에 제품이 없습니다.");
     window.location.href = `/product`;
   }
 
-  productsInCart.forEach((productInfo) => {
+  for (let i = 0; i < productsInCart.length; i++) {
+    const productInfo = productsInCart[i];
+    console.log(productInfo);
+
     const itemElem = document.createElement("div");
     itemElem.classList.add("product-item");
 
@@ -82,7 +86,6 @@ const renderCart = () => {
       <img src="${product.imgUrl}" alt="${product.title}">
       <h3 onclick=move(${product.productId})>${product.title}</h3>
       <p class="price">${totalPrice}원</p>
-      <div class="quantity">수량:<input id="quantity_input" type="number" max="${product.stock}" min="0" value="0"/>(개)</div>
       <p>수량: 
             <button onclick="updateQuantity(${orderCount}, -1)">-</button>
             <span id="quantity-${product.productId}">${orderCount}</span>
@@ -93,7 +96,7 @@ const renderCart = () => {
 
     totalPriceSum += totalPrice;
     productCartWrapper.append(itemElem);
-  });
+  }
 };
 
 renderCart();
