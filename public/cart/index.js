@@ -1,3 +1,62 @@
+const homeButton = document.getElementById("home_button");
+const productButton = document.getElementById("product_button");
+const cartButton = document.getElementById("cart_button");
+const orderButton = document.getElementById("order_button");
+
+window.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("token");
+  console.log("토큰", token);
+  const isTokenOk = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("토큰", token);
+      const fetchResult = await fetch("/api/user/token", {
+        method: "post",
+        body: JSON.stringify({ token }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (fetchResult.ok) {
+        const fetchData = await fetchResult.json();
+        console.log(fetchData);
+        //토큰불일치(로그인페이지 이동)
+        if (!fetchData.isVerify) {
+          alert("(!)계정 정보 불일치");
+          window.location.href = "/signin";
+          localStorage.removeItem("token");
+        }
+      } else {
+        alert("(!)로그인 후 이용해주세요.");
+        //window.location.href = "http://localhost:8000/signin";
+      }
+    } catch (err) {
+      console.log(err);
+      alert("(!)에러");
+      window.location.href = "/signin";
+    }
+  };
+  isTokenOk();
+});
+
+orderButton.addEventListener("click", () => {
+  window.location.href = "/order";
+});
+
+homeButton.addEventListener("click", () => {
+  window.location.href = "/";
+});
+
+productButton.addEventListener("click", () => {
+  window.location.href = "/product";
+});
+
+cartButton.addEventListener("click", () => {
+  window.location.href = "/cart";
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 const productCartWrapper = document.getElementById("product_cart_wrapper");
 let totalPriceSum = 0;
 
@@ -7,7 +66,7 @@ const renderCart = () => {
   // 장바구니가 비어있을 때
   if (!productsInCart) {
     alert("장바구니에 제품이 없습니다.");
-    window.location.href = `http://localhost:8000/product`;
+    window.location.href = `/product`;
   }
 
   productsInCart.forEach((productInfo) => {
@@ -47,7 +106,7 @@ totalElem.innerHTML = `총 합계: ${totalPriceSum}원`;
 
 // 제품 이름 클릭 시 상세정보 이동
 const move = (id) => {
-  window.location.href = `http://localhost:8000/product/detail?id=${id}`;
+  window.location.href = `/product/detail?id=${id}`;
 };
 
 // 구매수량 조정

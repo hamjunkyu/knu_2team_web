@@ -1,7 +1,7 @@
 const getElement = (id) => document.getElementById(id);
 
 const basketButton = getElement("basket_button");
-const payButton = getElement("pay_button");
+const orderButton = getElement("order_button");
 const homeButton = getElement("home_button");
 const productButton = getElement("product_button");
 const cartButton = getElement("cart_button");
@@ -54,7 +54,7 @@ const renderProductList = async () => {
       <div class="description">[상세설명] ${targetProduct.description}</div>
       <div class="buttons">
         <button id="basket_button">장바구니에 담기</button>
-        <button id="pay_button">구매</button>
+        <button id="order_button">구매</button>
       </div>
     </div>
   `;
@@ -102,8 +102,8 @@ const renderProductList = async () => {
     alert("장바구니에 담겼습니다.");
   });
 
-  getElement("pay_button").addEventListener("click", () => {
-    window.location.href = "http://localhost:8000/cart";
+  getElement("order_button").addEventListener("click", () => {
+    window.location.href = "/cart";
   });
 };
 
@@ -111,15 +111,17 @@ renderProductList();
 
 function move(target) {
   const idValue = target.id;
-  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
+  window.location.href = `/product/detail?id=${idValue}`;
 }
 
 homeButton.addEventListener("click", () => {
-  window.location.href = "http://localhost:8000";
+  window.location.href = "/";
 });
 
 productButton.addEventListener("click", () => {
-  window.location.href = "http://localhost:8000/product";
+  window.location.href = "/product";
 });
 
-cartButton.addEventListener("click", () => {});
+cartButton.addEventListener("click", () => {
+  window.location.href = "/";
+});
