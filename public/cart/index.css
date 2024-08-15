@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 /* 전체 페이지 스타일 */
->>>>>>> 9d843af805f8908dfb4079e76170e780f10378db
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -56,10 +53,7 @@ header {
   transform: translateY(-2px);
 }
 
-<<<<<<< HEAD
-=======
 /* 상품 및 장바구니 스타일 */
->>>>>>> 9d843af805f8908dfb4079e76170e780f10378db
 .product-cart {
   margin: 20px;
   padding: 30px;
