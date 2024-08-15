@@ -1,18 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" href="./index.css" />
     <script src="./index.js" defer></script>
   </head>
   <body>
-    <div>
-      <input id="signup_email" placeholder="email" />
+    <div class="signup-container">
+      <h2>회원가입</h2>
+      <input id="signup_email" type="email" placeholder="이메일" />
+      <input id="signup_nickname" type="text" placeholder="닉네임" />
+      <input id="signup_password" type="password" placeholder="비밀번호" />
+      <button id="signup_button">회원가입</button>
     </div>
-
-    <div>
-      <input id="signup_nickname" placeholder="nickname" />
-    </div>
-    <div>
-      <input id="signup_password" type="password" placeholder="password" />
-    </div>
-    <button id="signup_button">회원가입</button>
   </body>
 </html>

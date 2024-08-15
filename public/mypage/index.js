@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   const isTokenOk = async () => {
     try {
       const token = localStorage.getItem("token");
-
+      console.log(token);
       const fetchResult = await fetch("/api/user/token", {
         method: "post",
         body: JSON.stringify({ token }),
@@ -15,18 +15,19 @@ window.addEventListener("DOMContentLoaded", async () => {
         console.log(fetchData);
         //토큰불일치(로그인페이지 이동)
         if (!fetchData.isVerify) {
+          alert("(!)계정 정보 불일치");
           window.location.href = "http://localhost:8000/signin";
           localStorage.removeItem("token");
         }
         //토큰일치(마이페이지 이동)
         // window.location.href = "http://localhost:8000/mypage";
       } else {
-        alert("(!)페이지 로딩 오류");
+        alert("(!)로그인을 해주세요.");
         window.location.href = "http://localhost:8000/signin";
       }
     } catch (err) {
       console.log(err);
-      alert("(!)페이지 로딩 오류");
+      alert("(!)에러");
       window.location.href = "http://localhost:8000/signin";
     }
   };

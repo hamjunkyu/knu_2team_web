@@ -23,9 +23,9 @@ const fetchProductList = async () => {
   }
 };
 
-const productDetailWrapper = getElement("product_detail_wrapper");
+const productListWrapper = document.getElementById("product_list_wrapper");
 
-const renderProductDetail = async () => {
+const renderProductList = async () => {
   const productList = await fetchProductList();
   if (!productList || productList.length === 0) {
     console.log("empty productList");
@@ -68,7 +68,12 @@ const renderProductDetail = async () => {
   });
 };
 
-renderProductDetail();
+renderProductList();
+
+function move(target) {
+  const idValue = target.id;
+  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
+}
 
 homeButton.addEventListener("click", () => {
   window.location.href = "http://localhost:8000/home";

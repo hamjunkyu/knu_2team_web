@@ -1,15 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="./index.css" />
     <script src="./index.js" defer></script>
   </head>
   <body>
-    <div>
-      <input id="signin_email" placeholder="이메일" />
-    </div>
-    <div>
+    <div class="login-container">
+      <h2>로그인</h2>
+      <input id="signin_email" type="email" placeholder="이메일" />
       <input id="signin_password" type="password" placeholder="비밀번호" />
-    </div>
-    <div>
       <button id="signin_button">로그인</button>
     </div>
   </body>
