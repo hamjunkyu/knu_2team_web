@@ -3,14 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>상품 리스트</title>
+    <title>Product_Detail</title>
+    <link rel="stylesheet" href="detail.css" />
     <script src="./index.js" defer></script>
   </head>
   <body>
-    <header>상품 리스트</header>
-    <section id="product_list_wrapper">
-      <!-- 상품 리스트는 JavaScript에서 동적으로 렌더링됩니다. -->
-    </section>
-    <footer>&copy; 2024 쇼핑몰. All Rights Reserved.</footer>
+    <header>
+      <div class="logo">상품 상세 페이지</div>
+      <div class="nav-buttons">
+        <div><button id="home_button">Home</button></div>
+        <div><button id="product_button">Product</button></div>
+        <div><button id="cart_button">Cart</button></div>
+      </div>
+    </header>
+
+    <section id="product_detail_wrapper"></section>
   </body>
 </html>
