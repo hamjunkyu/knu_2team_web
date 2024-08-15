@@ -74,42 +74,30 @@ const renderProductList = async () => {
     }
   });
 
-  // !!!!!!! 수정돼야함
-  document.getElementById("basket_button").addEventListener("click", () => {
-    // 현재 localStorage에 저장된 cart 값을 불러옵니다.
+  getElement("basket_button").addEventListener("click", () => {
     const existingCart = JSON.parse(window.localStorage.getItem("cart")) || [];
 
-    // cart 값이 있는지 없는지
-    if (!existingCart) {
-      // 새로운 상품을 추가할 객체입니다.
-      const newProduct = {
-        product: targetProduct, // 상품 정보
-        orderCount: 3, // 예시로 주문 수량을 설정합니다. 필요에 따라 동적으로 설정하세요.
-      };
-    }
-
-    // 새로운 상품을 추가할 객체입니다. 예시로 주문 수량을 포함했습니다.
     const newProduct = {
-      product: targetProduct, // 상품 정보
-      orderCount: 3, // 예시로 주문 수량을 설정합니다. 필요에 따라 동적으로 설정하세요.
+      product: targetProduct, // 각 제품의 고유 ID
+      orderCount: parseInt(orderCount.value), // 사용자가 입력한 수량
     };
 
-    // 이미 같은 상품이 장바구니에 있는지 확인합니다.
+    // 해당 제품이 있는지 없는지
     const existingProductIndex = existingCart.findIndex(
-      (item) => item.product.id === newProduct.product.id
+      (item) => item.product.productId === newProduct.product.productId
     );
 
-    if (existingProductIndex !== -1) {
-      // 기존에 동일한 상품이 있으면 수량만 업데이트합니다.
-      existingCart[existingProductIndex].orderCount += newProduct.orderCount;
-    } else {
-      // 같은 상품이 없으면 새로 추가합니다.
+    // 동일한 제품이 없으면 새로운 객체로 추가
+    if (existingProductIndex == -1) {
       existingCart.push(newProduct);
     }
+    // 동일한 제품이 이미 장바구니에 있으면 수량을 업데이트
+    else {
+      existingCart[existingProductIndex].orderCount += newProduct.orderCount;
+    }
 
-    // 업데이트된 cart 배열을 localStorage에 저장합니다.
+    // 로컬 스토리지에 업데이트된 장바구니 저장
     window.localStorage.setItem("cart", JSON.stringify(existingCart));
-
     console.log("장바구니에 상품이 추가되었습니다.");
     alert("장바구니에 담겼습니다.");
   });
