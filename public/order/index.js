@@ -29,6 +29,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           window.location.href = "/signin";
           localStorage.removeItem("token");
         }
+        buyerEmail.value = fetchData.tokenVerify.email;
       } else {
         alert("(!)로그인을 해주세요.");
         window.location.href = "/signin";
@@ -39,6 +40,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       window.location.href = "/signin";
     }
   };
+
   isTokenOk();
 });
 
@@ -70,6 +72,7 @@ submitButton.addEventListener("click", async () => {
     } else {
       alert("(!)주문정보 저장 실패");
     }
+    window.location.href = "/mypage";
   } catch (err) {
     console.error(err);
   }
@@ -109,6 +112,7 @@ const renderCart = () => {
       <p>${product.description}</p>
       <p>${parseInt(totalPrice, 10).toLocaleString()}원</p>
       <p>수량: ${orderCount}</p>
+      <br>
     `;
 
     totalPriceSum += totalPrice;

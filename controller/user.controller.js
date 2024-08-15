@@ -85,7 +85,7 @@ userController.post("/token", (req, res) => {
     if (tokenVerify) {
       return res
         .status(200)
-        .json({ isVerify: true, message: "토큰이 일치합니다." });
+        .json({ isVerify: true, message: "토큰이 일치합니다.", tokenVerify });
     } else {
       return res
         .status(400)
