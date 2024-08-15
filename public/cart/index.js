@@ -63,11 +63,13 @@ const productCartWrapper = document.getElementById("product_cart_wrapper");
 let totalPriceSum = 0;
 
 const renderCart = () => {
+  productCartWrapper.innerHTML = "";
+
   const productsInCart = JSON.parse(window.localStorage.getItem("cart")) || [];
 
   console.log(productsInCart);
   // 장바구니가 비어있을 때
-  if (!productsInCart) {
+  if (productsInCart.length == 0) {
     alert("장바구니에 제품이 없습니다.");
     window.location.href = `/product`;
   }
@@ -89,9 +91,13 @@ const renderCart = () => {
       <h3 onclick=move(${product.productId})>${product.title}</h3>
       <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
       <p>수량: 
-            <button onclick="updateQuantity(${orderCount}, -1)">-</button>
+            <button onclick="updateQuantity(${
+              product.productId
+            }, ${orderCount}, -1)">-</button>
             <span id="quantity-${product.productId}">${orderCount}</span>
-            <button onclick="updateQuantity(${orderCount}, 1)">+</button>
+            <button onclick="updateQuantity(${
+              product.productId
+            }, ${orderCount}, 1)">+</button>
       </p>
       <button onclick="removeItem(${product.productId})">삭제</button>
     `;
@@ -99,51 +105,81 @@ const renderCart = () => {
     totalPriceSum += totalPrice;
     productCartWrapper.append(itemElem);
   }
+  const PriceSum = document.getElementById("total_price");
+  PriceSum.innerHTML = `
+  <p>합계: ${totalPriceSum}원</p>
+  `;
 };
 
 renderCart();
 
 // 총 금액을 표시할 요소를 추가합니다.
 console.log(totalPriceSum);
-const totalElem = document.createElement("div");
-totalElem.classList.add("total-price");
-totalElem.innerHTML = `총 합계: ${totalPriceSum}원`;
 
 // 제품 이름 클릭 시 상세정보 이동
 const move = (id) => {
   window.location.href = `/product/detail?id=${id}`;
 };
 
-// [구매하기] 버튼 추가
-const purchaseButton = document.createElement("button");
-purchaseButton.textContent = "구매하기";
-purchaseButton.onclick = () => {
-  window.location.href = "/product";
-};
-productCartWrapper.append(purchaseButton);
-
 // 수량을 업데이트하는 함수
-function updateQuantity(index, change) {
-  productsInCart[index].quantity += change;
-  if (productsInCart[index].quantity < 1) {
-    productsInCart[index].quantity = 1;
+function updateQuantity(productId, count, change) {
+  // 로컬 스토리지에 업데이트된 장바구니 저장
+  const updateStorage = (existingCart) => {
+    window.localStorage.setItem("cart", JSON.stringify(existingCart));
+  };
+
+  changedCount = count + change;
+  // 구매수량 0 이하 불가
+  if (changedCount == 0) {
+    return;
   }
-  localStorage.setItem("cart", JSON.stringify(productsInCart));
-  document.getElementById(`quantity-${index}`).textContent =
-    productsInCart[index].quantity;
-  updateTotalPrice();
+  const existingCart = JSON.parse(window.localStorage.getItem("cart")) || [];
+
+  // 해당 제품 찾기
+  const existingProductIndex = existingCart.findIndex(
+    (item) => item.product.productId === productId
+  );
+
+  // 제품이 없으면 에러
+  if (existingProductIndex == -1) {
+    alert("(Error)삭제 실패");
+  }
+  // 제품이 있으면 수량 변경
+  else {
+    // 구매수량 재고수량 이상 불가
+    if (changedCount > existingCart[existingProductIndex].product.stock) {
+      return;
+    } else {
+      existingCart[existingProductIndex].orderCount = changedCount;
+      updateStorage(existingCart);
+      renderCart(); // 리스트 업데이트
+    }
+  }
 }
 
 // 상품을 삭제하는 함수
 function removeItem(productId) {
-  renderCart(); // 리스트 업데이트
-}
+  // 로컬 스토리지에 업데이트된 장바구니 저장
+  const updateStorage = (existingCart) => {
+    window.localStorage.setItem("cart", JSON.stringify(existingCart));
+    console.log("장바구니에서 상품이 삭제되었습니다.");
+    alert("삭제되었습니다.");
+  };
+  const existingCart = JSON.parse(window.localStorage.getItem("cart")) || [];
 
-// 총 금액을 업데이트하는 함수 !!!고쳐야함!!!
-function updateTotalPrice() {
-  let newPriceSum = 0;
-  productsInCart.forEach((product) => {
-    newPriceSum += product.product.price * product.quantity;
-  });
-  totalElem.innerHTML = `총 합계: ${newPriceSum}원`;
+  // 해당 제품이 localstorage에 있는지 없는지
+  const existingProductIndex = existingCart.findIndex(
+    (item) => item.product.productId === productId
+  );
+
+  // 제품이 없으면 에러
+  if (existingProductIndex == -1) {
+    alert("(Error)삭제 실패");
+  }
+  // 제품이 있으면 삭제
+  else {
+    existingCart.splice(existingProductIndex, 1);
+    updateStorage(existingCart);
+    renderCart(); // 리스트 업데이트
+  }
 }

@@ -2,6 +2,7 @@ const getElement = (id) => document.getElementById(id);
 
 const basketButton = getElement("basket_button");
 const logOutButton = getElement("logout");
+const homeButton = getElement("home_button");
 
 const introduce = document.getElementById("introduce");
 
@@ -41,6 +42,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   isTokenOk();
 });
 
+getElement("home_button").addEventListener("click", () => {
+  window.location.href = "/";
+});
 getElement("basket_button").addEventListener("click", () => {
   window.location.href = "/cart";
 });
