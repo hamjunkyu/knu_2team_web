@@ -22,7 +22,6 @@ const fetchProductList = async () => {
     return null;
   }
 };
-
 const productDetailWrapper = document.getElementById("product_detail_wrapper");
 
 const renderProductList = async () => {
@@ -51,6 +50,7 @@ const renderProductList = async () => {
       <h1>${targetProduct.title}</h1>
       <div class="price">가격: ${targetProduct.price}원</div>
       <div class="stock">재고수량: ${targetProduct.stock}(개)</div>
+      <div class="purchase">구매수량:<input id="quantity_input" type="number" max="${targetProduct.stock}" min="0" value="0"/>(개)</div>
       <div class="description">[상세설명] ${targetProduct.description}</div>
       <div class="buttons">
         <button id="basket_button">장바구니에 담기</button>
@@ -59,12 +59,27 @@ const renderProductList = async () => {
     </div>
   `;
 
+  const purchaseQuantity = document.getElementById("quantity_input");
+
+  purchaseQuantity.addEventListener("input", function () {
+    let currentValue = parseInt(purchaseQuantity.value);
+
+    if (currentValue > targetProduct.stock) {
+      purchaseQuantity.value = targetProduct.stock;
+      alert("구매가능 수량을 초과하였습니다.");
+    }
+
+    if (currentValue < 0) {
+      purchaseQuantity.value = 0;
+    }
+  });
+
   getElement("basket_button").addEventListener("click", () => {
     alert("장바구니에 담겼습니다.");
   });
 
   getElement("pay_button").addEventListener("click", () => {
-    window.location.href = "http://localhost:8000";
+    window.location.href = "http://localhost:8000/cart";
   });
 };
 

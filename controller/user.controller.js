@@ -4,7 +4,7 @@ const userController = require("express").Router();
 const jwt = require("jsonwebtoken");
 
 userController.post("/signin", async (req, res) => {
-  const body = req.body;
+  // const body = req.body;
   // 사용자로부터 email과 password를 받음.
   const email = req.body.email;
   const password = req.body.password;
