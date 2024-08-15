@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   const isTokenOk = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
+      console.log(token); // 토큰 확인
       const fetchResult = await fetch("/api/user/token", {
         method: "post",
         body: JSON.stringify({ token }),
@@ -19,6 +19,8 @@ window.addEventListener("DOMContentLoaded", async () => {
           window.location.href = "/signin";
           localStorage.removeItem("token");
         }
+        //토큰일치
+        // window.location.href = "http://localhost:8000/mypage";
       } else {
         alert("(!)로그인을 해주세요.");
         window.location.href = "/signin";
