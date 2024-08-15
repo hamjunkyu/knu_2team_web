@@ -1,3 +1,4 @@
+const signupButton = document.getElementById("signup_button");
 const signupEmail = document.getElementById("signup_email");
 const signupPassword = document.getElementById("signup_password");
 const signupNickname = document.getElementById("signup_nickname");
