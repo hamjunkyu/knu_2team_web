@@ -3,6 +3,7 @@ const productButton = document.getElementById("product_button");
 const cartButton = document.getElementById("cart_button");
 const orderButton = document.getElementById("order_button");
 
+/*
 window.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
   console.log("토큰", token);
@@ -38,6 +39,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   };
   isTokenOk();
 });
+*/
 
 orderButton.addEventListener("click", () => {
   window.location.href = "/order";
@@ -85,7 +87,7 @@ const renderCart = () => {
     itemElem.innerHTML = `
       <img src="${product.imgUrl}" alt="${product.title}">
       <h3 onclick=move(${product.productId})>${product.title}</h3>
-      <p class="price">${totalPrice}원</p>
+      <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
       <p>수량: 
             <button onclick="updateQuantity(${orderCount}, -1)">-</button>
             <span id="quantity-${product.productId}">${orderCount}</span>
@@ -112,27 +114,11 @@ const move = (id) => {
   window.location.href = `/product/detail?id=${id}`;
 };
 
-// 구매수량 조정
-const purchaseQuantity = document.getElementById("quantity_input");
-
-purchaseQuantity.addEventListener("input", function () {
-  let currentValue = parseInt(purchaseQuantity.value);
-
-  if (currentValue > targetProduct.stock) {
-    purchaseQuantity.value = targetProduct.stock;
-    alert("구매가능 수량을 초과하였습니다.");
-  }
-
-  if (currentValue < 0) {
-    purchaseQuantity.value = 0;
-  }
-});
-
 // [구매하기] 버튼 추가
 const purchaseButton = document.createElement("button");
 purchaseButton.textContent = "구매하기";
 purchaseButton.onclick = () => {
-  window.location.href = "http://localhost:8000/product";
+  window.location.href = "/product";
 };
 productCartWrapper.append(purchaseButton);
 
@@ -148,11 +134,11 @@ function updateQuantity(index, change) {
   updateTotalPrice();
 }
 
-// 상품을 삭제하는 함수 !!!고쳐야함!!!
+// 상품을 삭제하는 함수
 function removeItem(productId) {
   productsInCart.splice(productId, 1);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
-  location.reload(); // 페이지 새로고침하여 리스트 업데이트
+  renderCart(); // 리스트 업데이트
 }
 
 // 총 금액을 업데이트하는 함수 !!!고쳐야함!!!

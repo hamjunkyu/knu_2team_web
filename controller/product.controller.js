@@ -16,4 +16,11 @@ productController.get("/", async (req, res) => {
   return res.json({ result: true, data: productList });
 });
 
+//
+productController.get("/:id", async (req, res) => {
+  console.log({ id: req.params.id });
+  const productList = await getProductList();
+  return res.json({ result: true, data: productList });
+});
+
 module.exports = productController;
