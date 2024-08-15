@@ -1,6 +1,3 @@
-const basketButton = document.getElementById("basket_button");
-const payButton = document.getElementById("pay_button");
-
 const fetchProductList = async () => {
   // product.controller와의 통신을 통해 'product' 가져옴
   const fetchResult = await fetch("/api/product", {
@@ -19,9 +16,9 @@ const fetchProductList = async () => {
   }
 };
 
-const productDetailWrapper = document.getElementById("product_detail_wrapper");
+const productListWrapper = document.getElementById("product_list_wrapper");
 
-const renderProductDetail = async () => {
+const renderProductList = async () => {
   const productList = await fetchProductList();
   // productList -> [] or null
   if (!productList || productList.length === 0) {
@@ -29,35 +26,31 @@ const renderProductDetail = async () => {
     return;
   }
   // productList가 존재하는 경우
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlId = urlParams.get("id");
-  console.log("URL ID:", urlId);
-  const targetProduct = productList.find((product) => {
-    console.log("Product ID:", product.productId);
-    return product.productId == urlId;
+
+  productList.forEach((v) => {
+    const itemElem = document.createElement("div");
+    itemElem.innerHTML = `
+    
+          <div>${v.title}</div>
+          <div>
+          <img src="${v.imgUrl}" />
+          </div>
+          <div>가격: ${v.price}원</div>
+          <div>[상세설명] ${v.description}</div>
+          <div>재고수량: ${v.stock}(개)</div>
+  
+      `;
+    itemElem.setAttribute("id", `${v.productId}`);
+    itemElem.setAttribute("onclick", "move(this)");
+    itemElem.setAttribute("style", "display: inline-block");
+    itemElem.setAttribute("width", "1000px");
+    productListWrapper.append(itemElem);
   });
-  console.log("Found Product:", targetProduct);
-  if (!targetProduct) {
-    console.error("상품 ID가 없습니다.");
-    return;
-  }
-  productDetailWrapper.innerHTML = `
-        <h1>${targetProduct.title}</h1>
-        <div>가격: ${targetProduct.price}원</div>
-        <div>[상세설명] ${targetProduct.description}</div>
-        <div>
-          <img src="${targetProduct.imgUrl}" alt="${targetProduct.title}" />
-        </div>
-        <div>재고수량: ${targetProduct.stock}(개)</div>
-    `;
 };
 
-renderProductDetail();
+renderProductList();
 
-basketButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000";
-});
-
-payButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000";
-});
+function move(target) {
+  const idValue = target.id;
+  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
+}
