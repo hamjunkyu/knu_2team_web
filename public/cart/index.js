@@ -9,32 +9,32 @@ if (!productsInCart) {
 
 window.addEventListener("DOMContentLoaded", async () => {});
 
-productsInCart.forEach((product) => {
+productsInCart.forEach((productInfo) => {
   const itemElem = document.createElement("div");
   itemElem.classList.add("product-item");
+
+  const product = productInfo.product;
+  let orderCount = productInfo.orderCount;
+
+  let totalPrice = product.price * orderCount;
+
   itemElem.innerHTML = `
       <img src="${product.imgUrl}" alt="${product.title}">
       <h3 onclick=move(${product.productId})>${product.title}</h3>
-      <p class="price">${product.price}원</p>
+      <p class="price">${totalPrice}원</p>
       <div class="quantity">수량:<input id="quantity_input" type="number" max="${product.stock}" min="0" value="0"/>(개)</div>
-      <button onclick="removeItem(${index})">삭제</button>
+      <button onclick="removeItem(${product.productId})">삭제</button>
     `;
   priceSum += product.price * 3;
   productCartWrapper.append(itemElem);
 });
 
-/*
-// 총 금액을 표시할 요소를 추가합니다.
-console.log(priceSum);
-const totalElem = document.createElement("div");
-totalElem.classList.add("total-price");
-totalElem.innerHTML = `총 합계: ${priceSum}원`;
-productCartWrapper.append(totalElem);
-
+// 제품 이름 클릭 시 상세정보 이동
 const move = (id) => {
   window.location.href = `http://localhost:8000/product/detail?id=${id}`;
 };
 
+// 구매수량 조정
 const purchaseQuantity = document.getElementById("quantity_input");
 
 purchaseQuantity.addEventListener("input", function () {
@@ -54,35 +54,13 @@ purchaseQuantity.addEventListener("input", function () {
 const purchaseButton = document.createElement("button");
 purchaseButton.textContent = "구매하기";
 purchaseButton.onclick = () => {
-  window.location.href = "/checkout";
+  window.location.href = "http://localhost:8000/product";
 };
 productCartWrapper.append(purchaseButton);
 
-// 수량을 업데이트하는 함수
-function updateQuantity(index, change) {
-  productsInCart[index].quantity += change;
-  if (productsInCart[index].quantity < 1) {
-    productsInCart[index].quantity = 1;
-  }
-  localStorage.setItem("cart", JSON.stringify(productsInCart));
-  document.getElementById(`quantity-${index}`).textContent =
-    productsInCart[index].quantity;
-  updateTotalPrice();
-}
-
 // 상품을 삭제하는 함수
-function removeItem(index) {
-  productsInCart.splice(index, 1);
+function removeItem(productId) {
+  productsInCart.splice(productId, 1);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
   location.reload(); // 페이지 새로고침하여 리스트 업데이트
 }
-
-// 총 금액을 업데이트하는 함수
-function updateTotalPrice() {
-  let newPriceSum = 0;
-  productsInCart.forEach((product) => {
-    newPriceSum += product.product.price * product.quantity;
-  });
-  totalElem.innerHTML = `총 합계: ${newPriceSum}원`;
-}
-*/

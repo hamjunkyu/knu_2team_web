@@ -59,18 +59,18 @@ const renderProductList = async () => {
     </div>
   `;
 
-  const purchaseQuantity = document.getElementById("quantity_input");
+  const orderCount = document.getElementById("quantity_input");
 
-  purchaseQuantity.addEventListener("input", function () {
-    let currentValue = parseInt(purchaseQuantity.value);
+  orderCount.addEventListener("input", function () {
+    let currentValue = parseInt(orderCount.value);
 
     if (currentValue > targetProduct.stock) {
-      purchaseQuantity.value = targetProduct.stock;
+      orderCount.value = targetProduct.stock;
       alert("구매가능 수량을 초과하였습니다.");
     }
 
     if (currentValue < 0) {
-      purchaseQuantity.value = 0;
+      orderCount.value = 0;
     }
   });
 
