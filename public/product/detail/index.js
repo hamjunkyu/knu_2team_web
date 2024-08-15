@@ -126,5 +126,5 @@ productButton.addEventListener("click", () => {
 });
 
 cartButton.addEventListener("click", () => {
-  window.location.href = "/";
+  window.location.href = "/cart";
 });
