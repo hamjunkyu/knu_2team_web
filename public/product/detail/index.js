@@ -50,7 +50,7 @@ const renderProductList = async () => {
       <h1>${targetProduct.title}</h1>
       <div class="price">가격: ${targetProduct.price}원</div>
       <div class="stock">재고수량: ${targetProduct.stock}(개)</div>
-      <div class="purchase">구매수량:<input id="quantity_input" type="number" max="${targetProduct.stock}" min="0" value="0"/>(개)</div>
+      <div class="quantity">구매수량:<input id="quantity_input" type="number" max="${targetProduct.stock}" min="0" value="0"/>(개)</div>
       <div class="description">[상세설명] ${targetProduct.description}</div>
       <div class="buttons">
         <button id="basket_button">장바구니에 담기</button>
