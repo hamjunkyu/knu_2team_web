@@ -148,11 +148,11 @@ function updateQuantity(index, change) {
   updateTotalPrice();
 }
 
-// 상품을 삭제하는 함수 !!!고쳐야함!!!
+// 상품을 삭제하는 함수
 function removeItem(productId) {
   productsInCart.splice(productId, 1);
   localStorage.setItem("cart", JSON.stringify(productsInCart));
-  location.reload(); // 페이지 새로고침하여 리스트 업데이트
+  renderCart(); // 리스트 업데이트
 }
 
 // 총 금액을 업데이트하는 함수 !!!고쳐야함!!!
