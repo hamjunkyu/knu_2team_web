@@ -103,7 +103,53 @@ const renderProductList = async () => {
   });
 
   getElement("order_button").addEventListener("click", () => {
-    window.location.href = "/cart";
+    // 로컬 스토리지에 업데이트된 장바구니 저장
+    const updateStorage = (existingCart) => {
+      window.localStorage.setItem("cart", JSON.stringify(existingCart));
+      console.log("장바구니에 상품이 추가되었습니다.");
+      alert("장바구니에 담겼습니다.");
+      window.location.href = "/cart";
+    };
+    // 구매수량이 0일 때
+    if (orderCount.value == 0) {
+      alert("수량을 입력해주세요.");
+      console.log("orderCount: ", orderCount.value);
+      window.location.href = "/cart";
+    } else {
+      console.log("orderCount: ", orderCount.value);
+      const existingCart =
+        JSON.parse(window.localStorage.getItem("cart")) || [];
+
+      const newProduct = {
+        product: targetProduct, // 각 제품의 고유 ID
+        orderCount: parseInt(orderCount.value), // 사용자가 입력한 수량
+      };
+
+      // 해당 제품이 있는지 없는지
+      const existingProductIndex = existingCart.findIndex(
+        (item) => item.product.productId === newProduct.product.productId
+      );
+
+      // 동일한 제품이 없으면 새로운 객체로 추가
+      if (existingProductIndex == -1) {
+        existingCart.push(newProduct);
+        updateStorage(existingCart);
+      }
+      // 동일한 제품이 이미 장바구니에 있으면 수량을 업데이트
+      else {
+        const oc = existingCart[existingProductIndex].orderCount;
+        const stck = existingCart[existingProductIndex].product.stock;
+        const oc2 = newProduct.orderCount;
+        if (oc <= stck)
+          if (oc + oc2 > stck) {
+            alert("재고 수량 초과");
+          } else {
+            existingCart[existingProductIndex].orderCount +=
+              newProduct.orderCount;
+            updateStorage(existingCart);
+          }
+      }
+    }
   });
 };
 
