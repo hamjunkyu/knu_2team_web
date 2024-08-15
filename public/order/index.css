@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
+.buyer-info,
+.delivery-info {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.buyer-info h2,
+.delivery-info h2 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #555;
+}
+
+.submit-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-button button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button button:hover {
+  background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .buyer-info,
+  .delivery-info {
+    padding: 15px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .submit-button button {
+    padding: 12px 24px;
+    font-size: 1em;
+  }
+}

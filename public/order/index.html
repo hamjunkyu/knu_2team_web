@@ -1,11 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
+    <script src="./index.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product_order</title>
     <link rel="stylesheet" href="./index.css" />
-    <script link relsrc="./index.js" defer></script>
+    <title>주문/결제</title>
   </head>
-  <body></body>
+  <div class="buyer-info">
+    <h2>구매자 정보 입력</h2>
+
+    <form id="buyer-form">
+      <!-- 이름 -->
+      <div class="form-buyer-name">
+        <label for="buyer-name">이름</label>
+        <input
+          type="text"
+          id="buyer-name"
+          name="buyerName"
+          placeholder="이름을 입력하세요"
+          required
+        />
+      </div>
+
+      <!-- 전화번호 -->
+      <div class="form-buyer-phone">
+        <label for="buyer-phone">전화번호</label>
+        <input
+          type="tel"
+          id="buyer-phone"
+          name="buyerPhone"
+          placeholder="010-1234-5678"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          required
+        />
+      </div>
+
+      <!-- 이메일 -->
+      <div class="form-buyer-email">
+        <label for="buyer-email">이메일</label>
+        <input
+          type="email"
+          id="buyer-email"
+          name="buyerEmail"
+          placeholder="example@domain.com"
+          required
+        />
+      </div>
+    </form>
+
+    <h2>배송지 정보 입력</h2>
+    <form id="delivery-form">
+      <!-- 이름 -->
+      <div class="form-delivery-name">
+        <label for="delivery-name">이름</label>
+        <input
+          type="text"
+          id="delivery-name"
+          name="deliveryName"
+          placeholder="이름을 입력하세요"
+          required
+        />
+      </div>
+
+      <!-- 배송 주소 -->
+      <div class="form-address">
+        <label for="buyer-address">배송 주소</label>
+        <input
+          type="text"
+          id="address"
+          name="Address"
+          placeholder="도로명 주소를 입력하세요"
+          required
+        />
+      </div>
+
+      <!-- 전화번호 -->
+      <div class="form-delivery-phone">
+        <label for="delivery-phone">전화번호</label>
+        <input
+          type="tel"
+          id="delivery-phone"
+          name="deliveryPhone"
+          placeholder="010-1234-5678"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          required
+        />
+
+    </form>
+  </div>
+
+  <!-- 제출 버튼 -->
+  <div class="submit-button">
+    <button id="submit_button">주문하기</button>
+  </div>
 </html>
