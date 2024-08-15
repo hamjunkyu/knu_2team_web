@@ -99,4 +99,14 @@ userController.post("/token", (req, res) => {
   }
 });
 
+userController.post("/checking", async (req, res) => {
+  const email = req.body.email;
+  const user = await getUserByEmail(email);
+  if (!user) {
+    return res.json({ result: true, message: "생성 가능한 이메일 입니다." });
+  } else {
+    return res.json({ result: false, message: "생성 불가능한 이메일 입니다." });
+  }
+});
+
 module.exports = userController;

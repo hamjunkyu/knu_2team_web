@@ -67,20 +67,10 @@ const renderCart = () => {
     let totalPrice = product.price * orderCount;
 
     itemElem.innerHTML = `
-      <img src="${product.imgUrl}" alt="${product.title}">
       <h3>${product.title}</h3>
-    // 제품설명 코드 추가
-      <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
-      <p>수량: 
-            <button onclick="updateQuantity(${
-              product.productId
-            }, ${orderCount}, -1)">-</button>
-            <span id="quantity-${product.productId}">${orderCount}</span>
-            <button onclick="updateQuantity(${
-              product.productId
-            }, ${orderCount}, 1)">+</button>
-      </p>
-      <button onclick="removeItem(${product.productId})">삭제</button>
+      <p>${product.description}</p>
+      <p>${parseInt(totalPrice, 10).toLocaleString()}원</p>
+      <p>수량: ${orderCount}</p>
     `;
 
     totalPriceSum += totalPrice;
@@ -89,7 +79,8 @@ const renderCart = () => {
   // 총 금액을 표시
   const PriceSum = document.getElementById("total_price");
   PriceSum.innerHTML = `
-  <p>합계: ${totalPriceSum}원</p>
+  <h2>결제정보</h2>
+  <p>총결제금액: ${parseInt(totalPriceSum, 10).toLocaleString()}원</p>
   `;
 };
 
