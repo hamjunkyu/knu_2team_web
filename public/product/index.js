@@ -55,7 +55,7 @@ mypageButton.addEventListener("click", async () => {
   window.location.href = "/mypage";
 });
 cartButton.addEventListener("click", async () => {
-  window.location.href = "/";
+  window.location.href = "/cart";
 });
 
 renderProductList();
