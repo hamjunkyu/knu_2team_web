@@ -142,6 +142,7 @@ const renderProductList = async () => {
     if (orderCount.value == 0) {
       alert("수량을 입력해주세요.");
       console.log("orderCount: ", orderCount.value);
+      window.location.href = "/cart";
     } else {
       console.log("orderCount: ", orderCount.value);
       const existingCart =

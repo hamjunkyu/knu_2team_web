@@ -136,8 +136,6 @@ function updateQuantity(index, change) {
 
 // 상품을 삭제하는 함수
 function removeItem(productId) {
-  productsInCart.splice(productId, 1);
-  localStorage.setItem("cart", JSON.stringify(productsInCart));
   renderCart(); // 리스트 업데이트
 }
 
