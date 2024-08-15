@@ -12,3 +12,9 @@ loginButton.addEventListener("click", async () => {
 signupButton.addEventListener("click", async () => {
   window.location.href = "http://localhost:8000/signup";
 });
+
+document
+  .getElementById("shop_now_button")
+  .addEventListener("click", function () {
+    window.location.href = "http://localhost:8000/product";
+  });

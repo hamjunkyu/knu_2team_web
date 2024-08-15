@@ -1,8 +1,89 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
   <head>
-    <script src="./index.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이페이지</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .mypage-container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .mypage-container h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .user-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .user-info img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+
+      .user-info p {
+        color: #555;
+        margin: 5px 0;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .actions button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .actions button:hover {
+        background-color: #0056b3;
+      }
+    </style>
   </head>
   <body>
-    <div>마이페이지</div>
+    <div class="mypage-container">
+      <h2>마이페이지</h2>
+      <div class="user-info">
+        <img src="https://via.placeholder.com/100" alt="프로필 사진" />
+        <p>닉네임: 홍길동</p>
+        <p>이메일: example@example.com</p>
+      </div>
+      <div class="actions">
+        <button>프로필 수정</button>
+        <button>로그아웃</button>
+      </div>
+    </div>
   </body>
 </html>
