@@ -6,37 +6,37 @@ const homeButton = getElement("home_button");
 const productButton = getElement("product_button");
 const cartButton = getElement("cart_button");
 
-const fetchProductList = async () => {
-  const fetchResult = await fetch("/api/product", {
-    method: "GET",
+const fetchProductData = async (productId) => {
+  const fetchResult = await fetch(`/api/product/${productId}`, {
+    method: "get",
     headers: {
       "Content-Type": "application/json",
     },
   });
-
   if (fetchResult.ok) {
     const fetchData = await fetchResult.json();
+    console.log(fetchData.data);
     return fetchData.data;
   } else {
-    console.error("Failed to fetch product list");
+    console.error("Failed to fetch product data");
     return null;
   }
 };
 const productDetailWrapper = document.getElementById("product_detail_wrapper");
 
 const renderProductList = async () => {
-  const productList = await fetchProductList();
-  if (!productList || productList.length === 0) {
-    console.log("empty productList");
-    return;
-  }
-
   const urlParams = new URLSearchParams(window.location.search);
   const urlId = urlParams.get("id");
 
-  const targetProduct = productList.find(
-    (product) => product.productId == urlId
-  );
+  const productData = await fetchProductData(urlId);
+  if (!productData) {
+    console.log("empty productData");
+    return;
+  }
+
+  const targetProduct = productData;
+  console.log("targetProduct: ", targetProduct);
+
   if (!targetProduct) {
     console.error("상품 ID가 없습니다.");
     return;

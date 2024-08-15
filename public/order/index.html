@@ -1,99 +1,117 @@
+<!DOCTYPE html>
 <html lang="ko">
   <head>
-    <script src="./index.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
+    <script src="./index.js" defer></script>
     <title>주문/결제</title>
   </head>
-  <section id="product_order_wrapper"></section>
-  <section id="total_price"></section>
 
-  <div class="buyer-info">
-    <h2>구매자 정보 입력</h2>
+  <body>
+    <!-- 주문 내역 -->
+    <div class="order-summary">
+      <div class="container">
+        <h2>주문내역</h2>
+      </div>
+      <section id="product_order_wrapper"></section>
+    </div>
 
-    <form id="buyer-form">
-      <!-- 이름 -->
-      <div class="form-buyer-name">
-        <label for="buyer-name">이름</label>
-        <input
-          type="text"
-          id="buyer-name"
-          name="buyerName"
-          placeholder="이름을 입력하세요"
-          required
-        />
+    <!-- 구매자 정보 및 배송지 정보 입력 폼을 감싸는 컨테이너 -->
+    <div class="center-container">
+      <!-- 구매자 정보 입력 -->
+      <div class="buyer-info">
+        <h2>구매자 정보 입력</h2>
+        <form id="buyer-form">
+          <!-- 이름 -->
+          <div class="form-buyer-name">
+            <label for="buyer-name">이름</label>
+            <input
+              type="text"
+              id="buyer-name"
+              name="buyerName"
+              placeholder="이름을 입력하세요"
+              required
+            />
+          </div>
+
+          <!-- 전화번호 -->
+          <div class="form-buyer-phone">
+            <label for="buyer-phone">전화번호</label>
+            <input
+              type="tel"
+              id="buyer-phone"
+              name="buyerPhone"
+              placeholder="010-1234-5678"
+              pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+              required
+            />
+          </div>
+
+          <!-- 이메일 -->
+          <div class="form-buyer-email">
+            <label for="buyer-email">이메일</label>
+            <input
+              type="email"
+              id="buyer-email"
+              name="buyerEmail"
+              placeholder="example@domain.com"
+              required
+            />
+          </div>
+        </form>
       </div>
 
-      <!-- 전화번호 -->
-      <div class="form-buyer-phone">
-        <label for="buyer-phone">전화번호</label>
-        <input
-          type="tel"
-          id="buyer-phone"
-          name="buyerPhone"
-          placeholder="010-1234-5678"
-          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-          required
-        />
+      <!-- 배송지 정보 입력 -->
+      <div class="delivery-info">
+        <h2>배송지 정보 입력</h2>
+        <form id="delivery-form">
+          <!-- 이름 -->
+          <div class="form-delivery-name">
+            <label for="delivery-name">이름</label>
+            <input
+              type="text"
+              id="delivery-name"
+              name="deliveryName"
+              placeholder="이름을 입력하세요"
+              required
+            />
+          </div>
+
+          <!-- 배송 주소 -->
+          <div class="form-address">
+            <label for="address">배송 주소</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="도로명 주소를 입력하세요"
+              required
+            />
+          </div>
+
+          <!-- 전화번호 -->
+          <div class="form-delivery-phone">
+            <label for="delivery-phone">전화번호</label>
+            <input
+              type="tel"
+              id="delivery-phone"
+              name="deliveryPhone"
+              placeholder="010-1234-5678"
+              pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+              required
+            />
+          </div>
+        </form>
       </div>
 
-      <!-- 이메일 -->
-      <div class="form-buyer-email">
-        <label for="buyer-email">이메일</label>
-        <input
-          type="email"
-          id="buyer-email"
-          name="buyerEmail"
-          placeholder="example@domain.com"
-          required
-        />
+      <!-- 결제 총액 및 제출 버튼 -->
+      <div class="total-info">
+        <section id="total_price"></section>
+        <div class="submit-button">
+          <button id="submit_button">결제하기</button>
+        </div>
       </div>
-    </form>
-
-    <h2>배송지 정보 입력</h2>
-    <form id="delivery-form">
-      <!-- 이름 -->
-      <div class="form-delivery-name">
-        <label for="delivery-name">이름</label>
-        <input
-          type="text"
-          id="delivery-name"
-          name="deliveryName"
-          placeholder="이름을 입력하세요"
-          required
-        />
-      </div>
-
-      <!-- 배송 주소 -->
-      <div class="form-address">
-        <label for="buyer-address">배송 주소</label>
-        <input
-          type="text"
-          id="address"
-          name="Address"
-          placeholder="도로명 주소를 입력하세요"
-          required
-        />
-      </div>
-
-      <!-- 전화번호 -->
-      <div class="form-delivery-phone">
-        <label for="delivery-phone">전화번호</label>
-        <input
-          type="tel"
-          id="delivery-phone"
-          name="deliveryPhone"
-          placeholder="010-1234-5678"
-          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-          required
-        />
-
-    </form>
-  </div>
-
-  <!-- 제출 버튼 -->
-  <div class="submit-button">
-    <button id="submit_button">결제하기</button>
-  </div>
+    </div>
+  </body>
 </html>

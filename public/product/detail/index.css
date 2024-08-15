@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background: linear-gradient(135deg, #f0f7ff, #cfe0fc);
   color: #333;
 }
 
@@ -96,7 +96,7 @@ header {
 }
 
 .buttons button {
-  background-color: #e74c3c;
+  background-color: #007bff;
   color: white;
   padding: 15px 20px;
   border: none;
@@ -108,5 +108,5 @@ header {
 }
 
 .buttons button:hover {
-  background-color: #c0392b;
+  background-color: #0056b3;
 }
