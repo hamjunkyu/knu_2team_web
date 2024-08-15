@@ -29,7 +29,7 @@ const renderProductList = async () => {
     console.log("No products available");
     return;
   }
-
+  // toLocaleString 으로 바꾸기 ex) 1,000 처럼
   productList.forEach((product) => {
     const itemElem = document.createElement("div");
     itemElem.classList.add("product-item");
@@ -55,7 +55,7 @@ mypageButton.addEventListener("click", async () => {
   window.location.href = "/mypage";
 });
 cartButton.addEventListener("click", async () => {
-  window.location.href = "/";
+  window.location.href = "/cart";
 });
 
 renderProductList();

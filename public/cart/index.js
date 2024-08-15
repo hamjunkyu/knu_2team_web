@@ -87,24 +87,20 @@ const renderCart = () => {
     let totalPrice = product.price * orderCount;
 
     itemElem.innerHTML = `
-  <img src="${product.imgUrl}" alt="${product.title}">
-  <div>
-    <h3 onclick="move(${product.productId})">${product.title}</h3>
-    <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
-    <p>수량: 
-      <button onclick="updateQuantity(${
-        product.productId
-      }, ${orderCount}, -1)">-</button>
-      <span id="quantity-${product.productId}">${orderCount}</span>
-      <button onclick="updateQuantity(${
-        product.productId
-      }, ${orderCount}, 1)">+</button>
-    </p>
-    <button onclick="removeItem(${
-      product.productId
-    })" class="delete-button">삭제</button>
-  </div>
-`;
+      <img src="${product.imgUrl}" alt="${product.title}">
+      <h3 onclick=move(${product.productId})>${product.title}</h3>
+      <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
+      <p>수량: 
+            <button onclick="updateQuantity(${
+              product.productId
+            }, ${orderCount}, -1)">-</button>
+            <span id="quantity-${product.productId}">${orderCount}</span>
+            <button onclick="updateQuantity(${
+              product.productId
+            }, ${orderCount}, 1)">+</button>
+      </p>
+      <button onclick="removeItem(${product.productId})">삭제</button>
+    `;
 
     totalPriceSum += totalPrice;
     productCartWrapper.append(itemElem);

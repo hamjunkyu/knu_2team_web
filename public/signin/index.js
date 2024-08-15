@@ -1,3 +1,6 @@
+const loginButton = document.getElementById("login_button");
+const joinButton = document.getElementById("join_button");
+
 const signinEmail = document.getElementById("signin_email");
 const signinPassword = document.getElementById("signin_password");
 const signinButton = document.getElementById("signin_button");
@@ -28,4 +31,12 @@ signinButton.addEventListener("click", async () => {
     console.error(err);
     alert("(!) 로그인 오류");
   }
+});
+
+loginButton.addEventListener("click", () => {
+  window.location.href = "/signin";
+});
+
+joinButton.addEventListener("click", () => {
+  window.location.href = "/signup";
 });

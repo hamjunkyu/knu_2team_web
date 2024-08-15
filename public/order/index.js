@@ -8,15 +8,52 @@ const deliveryName = document.getElementById("delivery-name");
 const address = document.getElementById("address");
 const deliveryPhone = document.getElementById("delivery-phone");
 
+window.addEventListener("DOMContentLoaded", async () => {
+  const isTokenOk = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log(token); // 토큰 확인
+      const fetchResult = await fetch("/api/user/token", {
+        method: "post",
+        body: JSON.stringify({ token }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (fetchResult.ok) {
+        const fetchData = await fetchResult.json();
+        console.log(fetchData);
+        //토큰불일치(로그인페이지 이동)
+        if (!fetchData.isVerify) {
+          alert("(!)계정 정보 불일치");
+          window.location.href = "/signin";
+          localStorage.removeItem("token");
+        }
+      } else {
+        alert("(!)로그인을 해주세요.");
+        window.location.href = "/signin";
+      }
+    } catch (err) {
+      console.log(err);
+      alert("(!)에러");
+      window.location.href = "/signin";
+    }
+  };
+  isTokenOk();
+});
+
 submitButton.addEventListener("click", async () => {
+  const products = JSON.parse(window.localStorage.getItem("cart")) || [];
+
   const order = {
     buyer_name: buyerName.value,
     buyer_phone: buyerPhone.value,
     buyer_email: buyerEmail.value,
 
     delivery_name: deliveryName.value,
-    address: address.value,
+    delivery_address: address.value,
     delivery_phone: deliveryPhone.value,
+    products,
   };
   console.log(order);
   try {
@@ -29,6 +66,7 @@ submitButton.addEventListener("click", async () => {
     });
     if (orderResult.ok) {
       alert("주문정보 저장 성공");
+      console.log(orderResult);
     } else {
       alert("(!)주문정보 저장 실패");
     }
@@ -80,7 +118,7 @@ const renderCart = () => {
   const PriceSum = document.getElementById("total_price");
   PriceSum.innerHTML = `
   <h2>결제정보</h2>
-  <p>총결제금액: ${totalPriceSum}원</p>
+  <p>총결제금액: ${parseInt(totalPriceSum, 10).toLocaleString()}원</p>
   `;
 };
 
