@@ -108,7 +108,11 @@ const renderCart = () => {
   // 총 금액을 표시
   const PriceSum = document.getElementById("total_price");
   PriceSum.innerHTML = `
-  <p>합계: ${parseInt(totalPriceSum, 10).toLocaleString()}원</p>
+  <p style="font-size: 22px; font-weight: bold;">합계: ${parseInt(
+    totalPriceSum,
+    10
+  ).toLocaleString()}
+  원</p>
   `;
 };
 

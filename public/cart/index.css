@@ -76,7 +76,7 @@ header {
 }
 
 .product-item img {
-  margin-right: 15px; /* 이미지와 내용 사이의 간격 */
+  margin-right: 25px; /* 이미지와 내용 사이의 간격 */
   max-width: 100px; /* 이미지 크기 조정 */
   height: auto; /* 비율 유지 */
 }
@@ -87,7 +87,7 @@ header {
 }
 
 .product-item p {
-  margin: 5px 0;
+  margin: 5px 0px;
 }
 
 /* 삭제 버튼 스타일 */

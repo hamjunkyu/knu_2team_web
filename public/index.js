@@ -13,6 +13,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         loginButton.addEventListener("click", () => {
           window.location.href = "/signin";
         });
+        signupButton.textContent = "회원가입";
+        signupButton.addEventListener("click", () => {
+          window.location.href = "/signup";
+        });
         return;
       }
 
@@ -30,8 +34,12 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         if (fetchData.isVerify) {
           // 토큰이 유효한 경우 로그아웃 버튼으로 설정
-          loginButton.textContent = "로그아웃";
+          loginButton.textContent = "마이페이지";
           loginButton.addEventListener("click", () => {
+            window.location.href = "/mypage"; // 로그아웃 후 홈으로 이동
+          });
+          signupButton.textContent = "로그아웃";
+          signupButton.addEventListener("click", () => {
             localStorage.removeItem("token");
             window.location.href = "/"; // 로그아웃 후 홈으로 이동
             alert("로그아웃 되었습니다.");
@@ -42,12 +50,20 @@ window.addEventListener("DOMContentLoaded", async () => {
           loginButton.addEventListener("click", () => {
             window.location.href = "/signin";
           });
+          signupButton.textContent = "회원가입";
+          signupButton.addEventListener("click", () => {
+            window.location.href = "/signup";
+          });
         }
       } else {
         // fetch에 실패한 경우 로그인 버튼으로 설정
         loginButton.textContent = "로그인";
         loginButton.addEventListener("click", () => {
           window.location.href = "/signin";
+        });
+        signupButton.textContent = "회원가입";
+        signupButton.addEventListener("click", () => {
+          window.location.href = "/signup";
         });
       }
     } catch (err) {
@@ -58,14 +74,14 @@ window.addEventListener("DOMContentLoaded", async () => {
       loginButton.addEventListener("click", () => {
         window.location.href = "/signin";
       });
+      signupButton.textContent = "회원가입";
+      signupButton.addEventListener("click", () => {
+        window.location.href = "/signup";
+      });
     }
   };
 
   isTokenOk();
-
-  signupButton.addEventListener("click", () => {
-    window.location.href = "/signup";
-  });
 
   document.getElementById("shop_now_button").addEventListener("click", () => {
     window.location.href = "/product";
