@@ -11,16 +11,18 @@
     <div class="mypage-container">
       <h2>마이페이지</h2>
       <div class="user-info">
-        <img src="https://via.placeholder.com/100" alt="프로필 사진" />
         <section id="introduce"></section>
-        <p>닉네임:</p>
-        <p>이메일:</p>
+        <p id="email">이메일:</p>
       </div>
       <div class="actions">
         <div><button id="home_button">홈페이지</button></div>
         <div><button id="basket_button">장바구니</button></div>
         <button id="logout">로그아웃</button>
       </div>
+
+      <!-- 오늘의 상품 추천 텍스트 추가 -->
+      <h3 style="text-align: left; margin-top: 30px">오늘의 상품 추천:</h3>
+      <div id="product_list_wrapper" class="product-list-wrapper"></div>
     </div>
   </body>
 </html>
