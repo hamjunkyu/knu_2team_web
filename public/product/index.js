@@ -1,5 +1,11 @@
+const getElement = (id) => document.getElementById(id);
+
+const homeButton = getElement("home_button");
+const mypageButton = getElement("mypage_button");
+const cartButton = getElement("cart_button");
+
 const fetchProductList = async () => {
-  // product.controller와의 통신을 통해 'product' 가져옴
+  // 상품 목록을 API로부터 가져옵니다.
   const fetchResult = await fetch("/api/product", {
     method: "get",
     headers: {
@@ -8,10 +14,9 @@ const fetchProductList = async () => {
   });
   if (fetchResult.ok) {
     const fetchData = await fetchResult.json();
-    // fetch Data -> { result: true, data: [] }
-    console.log(fetchData);
     return fetchData.data;
   } else {
+    console.error("Failed to fetch product list");
     return null;
   }
 };
@@ -20,34 +25,37 @@ const productListWrapper = document.getElementById("product_list_wrapper");
 
 const renderProductList = async () => {
   const productList = await fetchProductList();
-  // productList -> [] or null
   if (!productList || productList.length === 0) {
-    console.log("empty productList");
+    console.log("No products available");
     return;
   }
-  // productList가 존재하는 경우
-  productList.forEach((v) => {
+
+  productList.forEach((product) => {
     const itemElem = document.createElement("div");
+    itemElem.classList.add("product-item");
     itemElem.innerHTML = `
-      
-      <div>${v.title}</div>
-      <div>가격: ${v.price}원</div>
-      <div>[상세설명] ${v.description}</div>
-      <div>
-        <img src="${v.imgUrl}" />
-      </div>
-      <div>재고수량: ${v.stock}(개)</div>
-      
+      <img src="${product.imgUrl}" alt="${product.title}">
+      <h3>${product.title}</h3>
+      <p class="price">${product.price}원</p>
+      <p class="stock">재고: ${product.stock}개</p>
     `;
-    itemElem.setAttribute("id", `${v.productId}`);
-    itemElem.setAttribute("onclick", "move(this)");
+    itemElem.addEventListener("click", () => move(product.productId));
     productListWrapper.append(itemElem);
   });
 };
 
-renderProductList();
+const move = (id) => {
+  window.location.href = `http://localhost:8000/product/detail?id=${id}`;
+};
 
-function move(target) {
-  const idValue = target.id;
-  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
-}
+homeButton.addEventListener("click", async () => {
+  window.location.href = "http://localhost:8000";
+});
+mypageButton.addEventListener("click", async () => {
+  window.location.href = "http://localhost:8000/mypage";
+});
+cartButton.addEventListener("click", async () => {
+  window.location.href = "http://localhost:8000";
+});
+
+renderProductList();

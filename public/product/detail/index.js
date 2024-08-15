@@ -1,63 +1,88 @@
-const basketButton = document.getElementById("basket_button");
-const payButton = document.getElementById("pay_button");
+const getElement = (id) => document.getElementById(id);
+
+const basketButton = getElement("basket_button");
+const payButton = getElement("pay_button");
+const homeButton = getElement("home_button");
+const productButton = getElement("product_button");
+const cartButton = getElement("cart_button");
 
 const fetchProductList = async () => {
-  // product.controller와의 통신을 통해 'product' 가져옴
   const fetchResult = await fetch("/api/product", {
-    method: "get",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   if (fetchResult.ok) {
     const fetchData = await fetchResult.json();
-    // fetch Data -> { result: true, data: [] }
-    console.log(fetchData);
     return fetchData.data;
   } else {
+    console.error("Failed to fetch product list");
     return null;
   }
 };
 
-const productDetailWrapper = document.getElementById("product_detail_wrapper");
+const productListWrapper = document.getElementById("product_list_wrapper");
 
-const renderProductDetail = async () => {
+const renderProductList = async () => {
   const productList = await fetchProductList();
-  // productList -> [] or null
   if (!productList || productList.length === 0) {
     console.log("empty productList");
     return;
   }
-  // productList가 존재하는 경우
+
   const urlParams = new URLSearchParams(window.location.search);
   const urlId = urlParams.get("id");
-  console.log("URL ID:", urlId);
-  const targetProduct = productList.find((product) => {
-    console.log("Product ID:", product.productId);
-    return product.productId == urlId;
-  });
-  console.log("Found Product:", targetProduct);
+
+  const targetProduct = productList.find(
+    (product) => product.productId == urlId
+  );
   if (!targetProduct) {
     console.error("상품 ID가 없습니다.");
     return;
   }
+
   productDetailWrapper.innerHTML = `
-        <h1>${targetProduct.title}</h1>
-        <div>가격: ${targetProduct.price}원</div>
-        <div>[상세설명] ${targetProduct.description}</div>
-        <div>
-          <img src="${targetProduct.imgUrl}" alt="${targetProduct.title}" />
-        </div>
-        <div>재고수량: ${targetProduct.stock}(개)</div>
-    `;
+    <div>
+      <img src="${targetProduct.imgUrl}" alt="${targetProduct.title}">
+    </div>
+    <div>
+      <h1>${targetProduct.title}</h1>
+      <div class="price">가격: ${targetProduct.price}원</div>
+      <div class="stock">재고수량: ${targetProduct.stock}(개)</div>
+      <div class="description">[상세설명] ${targetProduct.description}</div>
+      <div class="buttons">
+        <button id="basket_button">장바구니에 담기</button>
+        <button id="pay_button">구매</button>
+      </div>
+    </div>
+  `;
+
+  getElement("basket_button").addEventListener("click", () => {
+    window.location.href = "http://localhost:8000";
+  });
+
+  getElement("pay_button").addEventListener("click", () => {
+    window.location.href = "http://localhost:8000";
+  });
 };
 
-renderProductDetail();
+renderProductList();
 
-basketButton.addEventListener("click", async () => {
-  window.location.href = "http://localhost:8000";
+function move(target) {
+  const idValue = target.id;
+  window.location.href = `http://localhost:8000/product/detail?id=${idValue}`;
+}
+
+homeButton.addEventListener("click", () => {
+  window.location.href = "http://localhost:8000/home";
 });
 
-payButton.addEventListener("click", async () => {
+productButton.addEventListener("click", () => {
+  window.location.href = "http://localhost:8000/product";
+});
+
+cartButton.addEventListener("click", () => {
   window.location.href = "http://localhost:8000";
 });
