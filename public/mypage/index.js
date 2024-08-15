@@ -1,3 +1,10 @@
+const getElement = (id) => document.getElementById(id);
+
+const basketButton = getElement("basket_button");
+const logOutButton = getElement("logout");
+
+const introduce = document.getElementById("introduce");
+
 window.addEventListener("DOMContentLoaded", async () => {
   const isTokenOk = async () => {
     try {
@@ -32,6 +39,14 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   };
   isTokenOk();
+});
+
+getElement("basket_button").addEventListener("click", () => {
+  window.location.href = "/cart";
+});
+getElement("logout").addEventListener("click", () => {
+  window.localStorage.removeItem("token");
+  window.location.href = "/";
 });
 
 /*
