@@ -45,7 +45,7 @@ checkEmailButton.addEventListener("click", async () => {
     });
 
     if (emailCheckResponse.ok) {
-      const emailCheck = await emailCheckResponse.json(); // JSON 응답 파싱
+      const emailCheck = await emailCheckResponse.json();
       if (emailCheck.result) {
         console.log("중복하는 이메일 없음");
         alert(emailCheck.message); // 서버에서 반환된 메시지 사용

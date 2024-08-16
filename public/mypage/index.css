@@ -1,65 +1,125 @@
 body {
   font-family: "Arial", sans-serif;
-  background-color: #f0f0f0;
+  background-color: #e9ecef;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden; /* 전체 페이지에 스크롤이 생기지 않도록 설정 */
 }
 
 .mypage-container {
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   padding: 40px;
-  max-width: 500px;
+  max-width: 800px;
   width: 100%;
   text-align: center;
+  margin: 0 auto;
+  max-height: 100vh; /* 컨테이너의 최대 높이를 뷰포트 높이에 맞춤 */
+  overflow-y: auto; /* 컨테이너 내부에 내용이 많을 경우 스크롤 가능하게 설정 */
 }
 
 .mypage-container h2 {
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: left;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.user-info img {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  margin-bottom: 10px;
+  align-items: flex-start;
+  margin-bottom: 30px;
 }
 
 .user-info p {
-  color: #555;
-  margin: 5px 0;
+  color: #444;
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+#introduce {
+  font-size: 18px;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .actions {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: flex-end;
+  gap: 15px;
 }
 
 .actions button {
   background-color: #007bff;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: 10px;
 }
 
 .actions button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.actions button:active {
+  background-color: #004494;
+  transform: translateY(0);
+}
+
+.product-list-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 0; /* 기존 padding을 줄여서 스크롤을 방지 */
+}
+
+.product-item {
+  flex: 0 0 auto;
+  margin: 0 10px;
+  width: 200px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.product-item h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.product-item .price {
+  font-size: 1em;
+  color: #e74c3c;
+}
+
+.product-item .stock {
+  font-size: 0.9em;
+  color: #27ae60;
+  margin-bottom: 15px;
+}
+
+.product-list-wrapper::-webkit-scrollbar {
+  display: none;
 }

@@ -51,24 +51,28 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 #product_detail_wrapper img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  margin-bottom: 15px;
+  margin: 0 auto 15px auto;
+  display: block;
+}
+
+#product_detail_wrapper div {
+  flex: 1;
+  padding: 10px;
 }
 
 #product_detail_wrapper h1 {
   font-size: 2em;
   margin-bottom: 10px;
   color: #333;
-}
-
-#product_detail_wrapper div {
-  flex: 1;
-  padding: 10px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
 }
 
 .price {
