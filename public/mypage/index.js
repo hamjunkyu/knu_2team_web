@@ -36,7 +36,9 @@ window.addEventListener("DOMContentLoaded", async () => {
       const userData = parseJwt(token);
       if (userData) {
         introduce.innerText = `안녕하세요, ${userData.nickname || "사용자"}님!`;
-        getElement("email").innerText = `이메일: ${userData.email || "없음"}`;
+        getElement("email").innerHTML = `<b>Email: </b>${
+          userData.email || "없음"
+        }`;
       } else {
         alert("(!)유효하지 않은 토큰입니다. 다시 로그인해주세요.");
         window.location.href = "/signin";
@@ -164,15 +166,16 @@ const renderOrderList = async () => {
 
   const orderListWrapper = getElement("order_list_wrapper");
   orderList.forEach((order, index) => {
-    const itemElem = document.createElement("h3");
-    itemElem.innerHTML = `${index + 1}번째 주문`;
-    orderListWrapper.append(itemElem);
+    const orderHeader = document.createElement("h3");
+    orderHeader.innerHTML = `${index + 1}번째 주문`;
+    orderListWrapper.append(orderHeader);
+
     for (let i = 0; i < order.products.length; i++) {
       const productInfo = order.products[i];
       console.log(productInfo);
 
       const itemElem = document.createElement("div");
-      itemElem.classList.add("product-item");
+      itemElem.classList.add("order-product-item");
 
       const product = productInfo.product;
       let orderCount = productInfo.orderCount;
@@ -181,19 +184,29 @@ const renderOrderList = async () => {
 
       itemElem.innerHTML = `
       <img src="${product.imgUrl}" alt="${product.title}">
-        <h3>${product.title}</h3>
+      <div>
+        <h3 onclick=move(${product.productId})>${product.title}</h3>
         <p class="description">${product.description}</p>
-        <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
+        <p class="price">${parseInt(product.price, 10).toLocaleString()}원</p>
         <p>수량: ${orderCount}</p>
-        <br>
+        <hr>
+        <h4 class="totalPrice">총 ${parseInt(
+          totalPrice,
+          10
+        ).toLocaleString()}원</h4>
+      </div>
+      <br>
       `;
-
-      itemElem.addEventListener("click", () => move(product.productId));
       orderListWrapper.append(itemElem);
+
+      const orderFooter = document.createElement("hr");
+      orderFooter.innerHTML = "";
+      orderListWrapper.append(orderFooter);
     }
   });
 };
 
+// 제품 이름 클릭 시 상세정보 이동
 const move = (id) => {
   window.location.href = `/product/detail?id=${id}`;
 };

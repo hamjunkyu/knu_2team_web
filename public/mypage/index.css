@@ -129,3 +129,29 @@ body {
   color: #666;
   margin-bottom: 20px;
 }
+
+/* 주문 목록을 가운데 정렬 */
+.order-list-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.order-product-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.order-product-item img {
+  margin-right: 20px;
+}
+
+.order-product-item div {
+  text-align: left;
+}
+
+.totalPrice {
+  color: #5e4737;
+}

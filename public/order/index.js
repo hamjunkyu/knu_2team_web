@@ -67,11 +67,11 @@ submitButton.addEventListener("click", async () => {
       },
     });
     if (orderResult.ok) {
-      alert("주문정보 저장 성공");
+      alert("주문 완료");
       console.log(orderResult);
       window.localStorage.removeItem("cart");
     } else {
-      alert("(!)주문정보 저장 실패");
+      alert("(!)주문 실패");
     }
     window.location.href = "/mypage";
   } catch (err) {
