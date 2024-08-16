@@ -1,4 +1,4 @@
-const loginButton = document.getElementById("login_button");
+const homeButton = document.getElementById("home_button");
 const joinButton = document.getElementById("join_button");
 
 const signinEmail = document.getElementById("signin_email");
@@ -32,9 +32,8 @@ signinButton.addEventListener("click", async () => {
     alert("(!) 로그인 오류");
   }
 });
-
-loginButton.addEventListener("click", () => {
-  window.location.href = "/signin";
+homeButton.addEventListener("click", async () => {
+  window.location.href = "/";
 });
 
 joinButton.addEventListener("click", () => {

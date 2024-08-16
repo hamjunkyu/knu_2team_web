@@ -1,5 +1,5 @@
+const homeButton = document.getElementById("home_button");
 const loginButton = document.getElementById("login_button");
-const joinButton = document.getElementById("join_button");
 
 const signupButton = document.getElementById("signup_button");
 const signupEmail = document.getElementById("signup_email");
@@ -62,10 +62,10 @@ checkEmailButton.addEventListener("click", async () => {
   }
 });
 
-loginButton.addEventListener("click", () => {
-  window.location.href = "/signin";
+homeButton.addEventListener("click", async () => {
+  window.location.href = "/";
 });
 
-joinButton.addEventListener("click", () => {
-  window.location.href = "/signup";
+loginButton.addEventListener("click", () => {
+  window.location.href = "/signin";
 });

@@ -59,3 +59,11 @@ cartButton.addEventListener("click", async () => {
 });
 
 renderProductList();
+
+loginButton.addEventListener("click", () => {
+  window.location.href = "/signin";
+});
+
+joinButton.addEventListener("click", () => {
+  window.location.href = "/signup";
+});
