@@ -53,7 +53,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       if (fetchResult.ok) {
         const fetchData = await fetchResult.json();
         console.log(fetchData);
-
         if (!fetchData.isVerify) {
           alert("(!)계정 정보 불일치");
           window.location.href = "/signin";
@@ -135,10 +134,71 @@ const renderProductList = async () => {
   }, 50); // 스크롤 속도 조정
 };
 
+const fetchOrderList = async () => {
+  const token = localStorage.getItem("token");
+  const userData = parseJwt(token);
+
+  const fetchResult = await fetch("/api/order/orderlist", {
+    method: "post",
+    body: JSON.stringify({ email: userData.email }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (fetchResult.ok) {
+    const fetchData = await fetchResult.json();
+    console.log("orders: ", fetchData.orders);
+    return fetchData.orders;
+  } else {
+    console.error("Failed to fetch product list");
+    return null;
+  }
+};
+
+const renderOrderList = async () => {
+  const orderList = await fetchOrderList();
+  if (!orderList || orderList.length === 0) {
+    console.log("No orders available");
+    return;
+  }
+
+  const orderListWrapper = getElement("order_list_wrapper");
+  orderList.forEach((order, index) => {
+    const itemElem = document.createElement("h3");
+    itemElem.innerHTML = `${index + 1}번째 주문`;
+    orderListWrapper.append(itemElem);
+    for (let i = 0; i < order.products.length; i++) {
+      const productInfo = order.products[i];
+      console.log(productInfo);
+
+      const itemElem = document.createElement("div");
+      itemElem.classList.add("product-item");
+
+      const product = productInfo.product;
+      let orderCount = productInfo.orderCount;
+
+      let totalPrice = product.price * orderCount;
+
+      itemElem.innerHTML = `
+      <img src="${product.imgUrl}" alt="${product.title}">
+        <h3>${product.title}</h3>
+        <p class="description">${product.description}</p>
+        <p class="price">${parseInt(totalPrice, 10).toLocaleString()}원</p>
+        <p>수량: ${orderCount}</p>
+        <br>
+      `;
+
+      itemElem.addEventListener("click", () => move(product.productId));
+      orderListWrapper.append(itemElem);
+    }
+  });
+};
+
 const move = (id) => {
   window.location.href = `/product/detail?id=${id}`;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   renderProductList();
+  renderOrderList();
 });

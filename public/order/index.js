@@ -69,6 +69,7 @@ submitButton.addEventListener("click", async () => {
     if (orderResult.ok) {
       alert("주문정보 저장 성공");
       console.log(orderResult);
+      window.localStorage.removeItem("cart");
     } else {
       alert("(!)주문정보 저장 실패");
     }
@@ -122,7 +123,12 @@ const renderCart = () => {
   const PriceSum = document.getElementById("total_price");
   PriceSum.innerHTML = `
   <h2>결제정보</h2>
-  <p>총결제금액: ${parseInt(totalPriceSum, 10).toLocaleString()}원</p>
+  <p style="font-size: 19px; font-weight: bold;">총결제금액: ${parseInt(
+    totalPriceSum,
+    10
+  ).toLocaleString()}
+  원</p>
+  <br>
   `;
 };
 

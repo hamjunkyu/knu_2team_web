@@ -23,6 +23,7 @@ header {
   border-radius: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  height: 75px; /* 높이 설정 */
 }
 
 /* 로고 스타일 */

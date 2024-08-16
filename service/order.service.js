@@ -24,4 +24,17 @@ const purchaseOrder = async (orderReq) => {
   }
 };
 
-module.exports = purchaseOrder;
+const getOrderByEmail = async (email) => {
+  try {
+    const order = await Order.find({ buyer_email: email });
+    console.log(order);
+    return order;
+  } catch (err) {
+    return null;
+  }
+};
+
+module.exports = {
+  purchaseOrder,
+  getOrderByEmail,
+};
