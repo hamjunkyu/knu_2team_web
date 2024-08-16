@@ -22,6 +22,7 @@ const fetchProductData = async (productId) => {
     return null;
   }
 };
+
 const productDetailWrapper = document.getElementById("product_detail_wrapper");
 
 const renderProductList = async () => {
@@ -41,6 +42,9 @@ const renderProductList = async () => {
     console.error("상품 ID가 없습니다.");
     return;
   }
+
+  // 가격에 toLocaleString() 적용
+  const formattedPrice = parseInt(targetProduct.price, 10).toLocaleString();
 
   productDetailWrapper.innerHTML = `
     <div>
@@ -64,7 +68,6 @@ const renderProductList = async () => {
       </div>
     </div>
   `;
-
   const orderCount = document.getElementById("quantity_input");
 
   orderCount.addEventListener("input", function () {

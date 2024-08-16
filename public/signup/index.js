@@ -1,3 +1,6 @@
+const loginButton = document.getElementById("login_button");
+const joinButton = document.getElementById("join_button");
+
 const signupButton = document.getElementById("signup_button");
 const signupEmail = document.getElementById("signup_email");
 const signupPassword = document.getElementById("signup_password");
@@ -57,4 +60,12 @@ checkEmailButton.addEventListener("click", async () => {
   } catch (err) {
     console.error(err);
   }
+});
+
+loginButton.addEventListener("click", () => {
+  window.location.href = "/signin";
+});
+
+joinButton.addEventListener("click", () => {
+  window.location.href = "/signup";
 });
