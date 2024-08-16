@@ -5,7 +5,6 @@ const { String } = mongoose.Schema.Types;
 const orderSchema = new mongoose.Schema(
   {
     buyerId: {
-      // User 모델에 있는 objectId
       type: String,
       required: true,
     },
